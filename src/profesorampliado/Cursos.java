@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -284,6 +285,54 @@ public class Cursos {
                     throw new IOException("No se ha podido crear el fichero " + cursoFichero.getName());
                 }
 
+            }
+        }
+    }
+    
+    
+    /**
+     * Lee los datos que se necuentra en el fichero y los carga en el treeMap
+     */
+    public static void cargaDatos(TreeMap<String, String> tm){
+        FileReader fr = null;
+        BufferedReader entrada = null;
+        int indice = 0;
+        String cadena, key, value;
+        
+        try {
+            fr = new FileReader(filePath);
+            entrada = new BufferedReader(fr);
+            
+            cadena = entrada.readLine();
+            
+            while(cadena != null){
+                indice = cadena.indexOf(",");
+                if (indice != -1) {
+                    key = cadena.substring(0, indice).toUpperCase();
+                    value = cadena.substring(indice + 1 ).toUpperCase();
+                    tm.put(key, value);
+                }
+                cadena = entrada.readLine();
+            }
+        }
+        catch (FileNotFoundException fnf) {
+            fnf.printStackTrace();
+        }
+        catch (IOException ioe) {
+            System.out.println("Ha ocurrido una excepción: " + ioe.getMessage());    
+        }
+        catch (Exception e) {
+            System.out.println("Ha ocurrido una excepción: " + e.getMessage());   
+        }finally{
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+                if(entrada != null){
+                    entrada.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Se ha producido un error al intentar cerrar el fichero: " + e.getMessage());
             }
         }
     }
