@@ -84,28 +84,26 @@ public class CentroEducativo {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-//        Cuenta.cargaEntidadesBancarias(tmEEEE);
-//        Cuenta.cargaSucursalesBancarias(tmEEEESSSS);
-
-        //TablasCursos.cargaCursos(tmCC);
-        Cursos.bajaCurso();
-
-        for (Map.Entry<String, String> entry : tmCC.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-
-            System.out.println(key + " => " + value);
-        }
-//
-//      TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
-//        for (Map.Entry<String, String> entry : tmCCASIGNA.entrySet()) {
-//            String key = entry.getKey();
-//            String value = entry.getValue();
-//
-//            System.out.println(key + " => " + value);
-//        }
+        Cuenta.cargaEntidadesBancarias(tmEEEE);
+        Cuenta.cargaSucursalesBancarias(tmEEEESSSS);
+        TablasCursos.cargaCursos(tmCC);
+        TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
+        
+        
         //Cursos.altaCurso();
         //Cursos.bajaCurso();
+        //CursoAsignatura.altaCursoAsignatura();
+        CursoAsignatura.bajaCursoAsignatura();
+        
+        for (Map.Entry<String, String> entry : tmCCASIGNA.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println(key + " => " + value);
+        }
+
+        
+        
+        
         System.out.println("Curso: ");
         curso = sc.nextLine();
         CentroEducativo.setCurso(curso);

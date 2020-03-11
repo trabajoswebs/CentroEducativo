@@ -211,7 +211,7 @@ public class Cuenta {
     }
     
     /**
-     * Lee los datos que se necuentra en el fichero y los carga en el treeMap
+     * Lee los datos que se encuentra en el fichero y los carga en el treeMap
      */
     public static void cargaDatos(String filePath, TreeMap<String, String> tm){
         FileReader fr = null;

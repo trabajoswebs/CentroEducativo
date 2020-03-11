@@ -6,6 +6,7 @@
 package profesorampliado;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,7 +30,9 @@ public class TablasCursos {
     }
     
     /**
-     * Lee los datos que se necuentra en el fichero y los carga en el treeMap
+     * Lee los datos que se encuentra en el fichero y los carga en el treeMap
+     * @param filePath
+     * @param tm
      */
     public static void cargaDatos(String filePath, TreeMap<String, String> tm){
         FileReader fr = null;
@@ -71,6 +74,48 @@ public class TablasCursos {
                 }
             } catch (IOException e) {
                 System.out.println("Se ha producido un error al intentar cerrar el fichero: " + e.getMessage());
+            }
+        }
+    }
+    
+    
+     /**
+     * Crea el fichero, pasado por parametro, si no existe
+     * @param ruta direccion de la ubicacion del fichero
+     * @param fichero 
+     * @throws IOException 
+     */
+    public static void crearFichero(String ruta, String fichero) throws IOException {
+        File cursoRuta = new File(ruta);
+        File cursoFichero = new File(cursoRuta, fichero);
+        
+        if (! cursoFichero.exists()) {
+
+            System.out.println("El fichero " + cursoFichero.getAbsolutePath() + " no existe.");
+
+            if (!cursoRuta.exists()) {
+                System.out.println("El directorio " + cursoRuta.getAbsolutePath() + " no existe.");
+
+                if (cursoRuta.mkdir()) {
+                    System.out.println("Se ha creado el directorio " + cursoRuta.getAbsolutePath());
+
+                    if (cursoFichero.createNewFile()) {
+                        System.out.println("Se ha creado el fichero " + cursoFichero.getName());
+                    } else {
+                        throw new IOException("No se ha podido crear el fichero " + cursoFichero.getName());
+                    }
+
+                } else {
+                    throw new IOException("No se ha podido crear la ruta " + cursoRuta.getAbsolutePath());
+                }
+            } else {
+
+                if (cursoFichero.createNewFile()) {
+                    System.out.println("Se ha creado el fichero " + cursoFichero.getName());
+                } else {
+                    throw new IOException("No se ha podido crear el fichero " + cursoFichero.getName());
+                }
+
             }
         }
     }

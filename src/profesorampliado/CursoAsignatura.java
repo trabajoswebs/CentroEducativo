@@ -11,26 +11,27 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static profesorampliado.Cursos.sc;
 
 /**
- * Permite crear un fichero, si no esta creado, en la ruta indicada
+ *
  * @author Acer
  */
-public class Cursos {
+public class CursoAsignatura {
     
     public static final String directory = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\";
-    public static final String cursoFileName = "cursos.txt";
-    public static final String filePath = directory + cursoFileName;
+    public static final String curAsigFileName = "cursoAsignatura.txt";
+    public static final String curAsigFilePath = directory + curAsigFileName;
     
-    static Scanner sc = new Scanner(System.in);
+    
     
     /**
-     * Elimina el código del curso en el fichero Profesores/cursos.txt
+     * Elimina la asignatura en el fichero Profesores/CursosAsignaturas.txt
      */
-    public static void bajaCurso(){
+    public static void bajaCursoAsignatura(){
+        
         File ficheroActualizado = new File(directory + "cursosActualizados.txt");
         String codCurso, cadena, continuar;
         int indice;
@@ -44,16 +45,21 @@ public class Cursos {
             
             try {
                 System.out.println("\nListado de cursos: ");
-                System.out.println(imprimeCursos());
+                System.out.println(imprimeCursosAsignaturas());
                 System.out.print("Indique el código del curso que desea eliminar: ");
                 codCurso = sc.nextLine();
                 
                 if (codCurso.trim().isEmpty()) {
-                    throw new Exception("El código del curso es erroneo.");
+                    throw new Exception("Debe introducir un código de asignatura válido.");
                 }
-                fichero = new RandomAccessFile(filePath, "r");
                 
-                if(fichero.length() == 0) throw new Exception("El fichero de los cursos se encuentra vacio.");
+                if (! CentroEducativo.getTmCCASIGNA().containsKey(codCurso)) { //Comprobamos la existencia del código del curso
+                    throw new Exception("La asignatura no existe.");
+                }
+                
+                fichero = new RandomAccessFile(curAsigFilePath, "r");
+                
+                if(fichero.length() == 0) throw new Exception("El fichero de las asignaturas se encuentra vacio.");
                 
                 cadena = fichero.readLine();
                 
@@ -94,27 +100,27 @@ public class Cursos {
                 fichero.close(); //Debemos cerrar el fichero antes de eliminarlo
                 
                 File ficheroOriginal = new File(directory + "cursosActualizados.txt");
-                File destFichero = new File(filePath);
+                File destFichero = new File(curAsigFilePath);
                 
                  if (destFichero.delete()) { //Borramos el fichero anterior
                      
                         if (ficheroOriginal.renameTo(destFichero)) {//Renombramos el fichero
                             
-                            if (CentroEducativo.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
-                                CentroEducativo.getTmCC().remove(codCurso); // Eliminamos el curso del treemap
+                            if (CentroEducativo.getTmCCASIGNA().containsKey(codCurso)) { //Actualizamos el TreeMap
+                                CentroEducativo.getTmCCASIGNA().remove(codCurso); // Eliminamos el curso del treemap
                             }else{
-                                CentroEducativo.getTmCC().clear();//Eliminamos todos los datos del TreeMap
-                                TablasCursos.cargaCursos(CentroEducativo.getTmCC()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
+                                CentroEducativo.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
+                                TablasCursos.cargaCursos(CentroEducativo.getTmCCASIGNA()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
                             }
 
-                        System.out.println("Se ha eliminado correctamente el curso  " + codCurso + " del fichero.");
-                        System.out.println("Si desea eliminar más cursos de la lista introduzca la letra: \"S\"");
+                        System.out.println("Se ha eliminado correctamente la asignatura  " + codCurso + " del fichero.");
+                        System.out.println("Si desea eliminar más asignaturas de la lista introduzca la letra: \"S\"");
 
                         continuar = sc.nextLine();
                         repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
 
                     } else {
-                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + cursoFileName); 
+                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + curAsigFileName); 
                     }
 
                 } else {
@@ -130,7 +136,7 @@ public class Cursos {
             } catch (Exception ex) {
                 System.out.println("Error: " + ex.getMessage());
                 sc.nextLine();
-                System.out.println("Si desea eliminar algún curso de la lista introduzca la letra: \"S\"");
+                System.out.println("Si desea eliminar alguna asignatura de la lista introduzca la letra: \"S\"");
                 continuar = sc.nextLine();
                 repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
 
@@ -150,18 +156,109 @@ public class Cursos {
         } while (repetir);
 
     }
+    
+    
     /**
-     * Imprime por pantalla los cursos que se encuentran en el fichero
-     * @return String codigo y nombre de los cursos
+     * Se da de alta a un curso en el fichero cursos.txt
+     */
+    public static void altaCursoAsignatura() {        
+        String codCurso, codCursoAsignatura, nombreAsignatura, cadena, continuar;        
+        RandomAccessFile fichero = null; 
+        long size = 0;
+        int indice;
+        boolean repetir = false;
+        
+        do {
+
+            try {
+                System.out.println("Introduzca el código del Curso:");
+                codCursoAsignatura = sc.nextLine();
+                
+                 if (codCursoAsignatura.isEmpty()) {
+                    throw new Exception("Debe introducir el código del curso.");
+                }
+                codCurso = codCursoAsignatura.substring(0, 2).toUpperCase(); // Obtenemos el código del curso
+                
+                if (! CentroEducativo.getTmCC().containsKey(codCurso)) { //Comprobamos la existencia del código del curso
+                    throw new Exception("El curso no existe.");
+                }
+                
+                System.out.println("Introduzca el nombre de la asignatura:");
+                nombreAsignatura = sc.nextLine();                
+               
+                if (nombreAsignatura.isEmpty()) {
+                    throw new Exception("Debe introducir el nombre de la asignatura.");
+                }
+
+                TablasCursos.crearFichero(directory, curAsigFileName); //Se crea el fichero si no existe
+                
+                fichero = new RandomAccessFile(curAsigFilePath, "rw");
+                cadena = fichero.readLine();
+                
+                while(cadena != null){
+                    indice = cadena.indexOf(",");
+                    if(indice != -1){                        
+                        if (cadena.substring(0, indice).equalsIgnoreCase(codCursoAsignatura)) //Obtenemos el código del curso
+                            throw new Exception("El código del curso ya se encuentra en la lista");
+                    }
+                    cadena = fichero.readLine();                    
+                }                
+                size = fichero.length(); 
+                fichero.seek(size);// nos situamos al final del fichero
+                cadena = codCursoAsignatura.toUpperCase() + "," + nombreAsignatura + "\n";
+                fichero.writeBytes(cadena);
+                
+                if (CentroEducativo.getTmCCASIGNA().containsKey(codCursoAsignatura)) { //Actualizamos el TreeMap
+                    CentroEducativo.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos el curso del treemap
+                } else {
+                    CentroEducativo.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
+                    TablasCursos.cargaCursos(CentroEducativo.getTmCCASIGNA()); //volcamos los datos del fichero al TreeMap y lo actualizamos
+                }
+                System.out.println("Se ha añadido correctamente la asignatura en el fichero.");
+                System.out.println("Si desea añadir más asignaturas al fichero introduzca la letra: \"S\"");
+                continuar = sc.nextLine();
+                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
+                
+            } catch (FileNotFoundException ex) {     //Si no se encuentra el fichero            
+                System.out.println("Ha ocurrido una excepción: " + ex.getMessage());
+                sc.nextLine();
+            } catch (IOException ex) {
+                repetir = true;
+                Logger.getLogger("Ha ocurrido una excepción: " + Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                sc.nextLine();
+            } catch (Exception ex) {                
+                repetir = true;
+                System.out.println("Ha ocurrido una excepción: " + ex.getMessage());
+                sc.nextLine();
+                System.out.println("Si desea añadir más asignaturas al fichero introduzca la letra: \"S\"");
+                continuar = sc.nextLine();
+                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
+            } finally{
+                if (fichero != null) {
+                    try {
+                        fichero.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger("Ha ocurrido una excepción: " +Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        } while (repetir);
+
+    }
+    
+    
+    /**
+     * Imprime por pantalla lasignaturas que se encuentran en el fichero
+     * @return String codigo y nombre de las asignaturas
      */
     
-    public static String imprimeCursos() {
+    public static String imprimeCursosAsignaturas() {
         String cadena;
         FileReader fr = null;
         BufferedReader entrada = null;
         StringBuilder cursos = new StringBuilder();
         try {            
-            fr = new FileReader(filePath);
+            fr = new FileReader(curAsigFilePath);
             entrada = new BufferedReader(fr);
             cadena = entrada.readLine();
             while(cadena != null){
@@ -188,82 +285,4 @@ public class Cursos {
         }
         return cursos.toString();
     }
-
-    /**
-     * Se da de alta a un curso en el fichero cursos.txt
-     */
-    public static void altaCurso() {        
-        String codCurso, nombreCurso, cadena, continuar;        
-        RandomAccessFile fichero = null; 
-        long size = 0;
-        int indice;
-        boolean repetir = false;
-        
-        do {
-            System.out.println("\nListado de cursos: ");
-            System.out.println(imprimeCursos());
-            System.out.println("Introduzca el código del Curso:");
-            codCurso = sc.nextLine();
-            System.out.println("Introduzca el nombre del Curso:");
-            nombreCurso = sc.nextLine();
-            
-            try {
-                if(codCurso.isEmpty()) throw new Exception("Debe introducir el código del curso.");
-                if(nombreCurso.isEmpty()) throw new Exception("Debe introducir el nombre del curso.");
-                
-                TablasCursos.crearFichero(directory, cursoFileName);
-                fichero = new RandomAccessFile(filePath, "rw");
-                cadena = fichero.readLine();
-                
-                while(cadena != null){
-                    indice = cadena.indexOf(",");
-                    if(indice != -1){                        
-                        if (cadena.substring(0, indice).equalsIgnoreCase(codCurso)) //Obtenemos el código del curso
-                            throw new Exception("El código del curso ya se encuentra en la lista");
-                    }
-                    cadena = fichero.readLine();                    
-                }                
-                size = fichero.length(); 
-                fichero.seek(size);// nos situamos al final del fichero
-                cadena = codCurso.toUpperCase() + "," + nombreCurso + "\n";
-                fichero.writeBytes(cadena);
-                
-                if (CentroEducativo.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
-                    CentroEducativo.getTmCC().put(codCurso, "," + nombreCurso + "\n"); // añadimos el curso del treemap
-                } else {
-                    CentroEducativo.getTmCC().clear();//Eliminamos todos los datos del TreeMap
-                    TablasCursos.cargaCursos(CentroEducativo.getTmCC()); //volcamos los datos del fichero al TreeMap y lo actualizamos
-                }
-                System.out.println("Se ha añadido correctamente el curso en el fichero.");
-                System.out.println("Si desea añadir más cursos al fichero introduzca la letra: \"S\"");
-                continuar = sc.nextLine();
-                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
-                
-            } catch (FileNotFoundException ex) {     //Si no se encuentra el fichero            
-                System.out.println("Ha ocurrido una excepción: " + ex.getMessage());
-                sc.nextLine();
-            } catch (IOException ex) {
-                repetir = true;
-                Logger.getLogger("Ha ocurrido una excepción: " + Cursos.class.getName()).log(Level.SEVERE, null, ex);
-                sc.nextLine();
-            } catch (Exception ex) {                
-                repetir = true;
-                System.out.println("Ha ocurrido una excepción: " + ex.getMessage());
-                sc.nextLine();
-                System.out.println("Si desea añadir más cursos al fichero introduzca la letra: \"S\"");
-                continuar = sc.nextLine();
-                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
-            } finally{
-                if (fichero != null) {
-                    try {
-                        fichero.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger("Ha ocurrido una excepción: " +Cursos.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        } while (repetir);
-
-    }
-    
 }
