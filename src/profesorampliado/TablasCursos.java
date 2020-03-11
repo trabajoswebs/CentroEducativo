@@ -82,7 +82,7 @@ public class TablasCursos {
      /**
      * Crea el fichero, pasado por parametro, si no existe
      * @param ruta direccion de la ubicacion del fichero
-     * @param fichero 
+     * @param fichero nombre del fichero
      * @throws IOException 
      */
     public static void crearFichero(String ruta, String fichero) throws IOException {

@@ -53,7 +53,7 @@ public class CursoAsignatura {
                     throw new Exception("Debe introducir un código de asignatura válido.");
                 }
                 
-                if (! CentroEducativo.getTmCCASIGNA().containsKey(codCurso)) { //Comprobamos la existencia del código del curso
+                if (! CentroEducativo.getTmCCASIGNA().containsKey(codCurso)) { //Comprobamos la existencia del código de la asignatura
                     throw new Exception("La asignatura no existe.");
                 }
                 
@@ -107,7 +107,7 @@ public class CursoAsignatura {
                         if (ficheroOriginal.renameTo(destFichero)) {//Renombramos el fichero
                             
                             if (CentroEducativo.getTmCCASIGNA().containsKey(codCurso)) { //Actualizamos el TreeMap
-                                CentroEducativo.getTmCCASIGNA().remove(codCurso); // Eliminamos el curso del treemap
+                                CentroEducativo.getTmCCASIGNA().remove(codCurso); // Eliminamos la asignatura del treemap
                             }else{
                                 CentroEducativo.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
                                 TablasCursos.cargaCursos(CentroEducativo.getTmCCASIGNA()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
@@ -138,7 +138,7 @@ public class CursoAsignatura {
                 sc.nextLine();
                 System.out.println("Si desea eliminar alguna asignatura de la lista introduzca la letra: \"S\"");
                 continuar = sc.nextLine();
-                repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
+                repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo asignaturas
 
             } finally {
                 try {
@@ -159,7 +159,7 @@ public class CursoAsignatura {
     
     
     /**
-     * Se da de alta a un curso en el fichero cursos.txt
+     * Se da de alta a una asignatura en el fichero cursosAsignaturas.txt
      */
     public static void altaCursoAsignatura() {        
         String codCurso, codCursoAsignatura, nombreAsignatura, cadena, continuar;        
@@ -171,11 +171,11 @@ public class CursoAsignatura {
         do {
 
             try {
-                System.out.println("Introduzca el código del Curso:");
+                System.out.println("Introduzca el código de la asignatura:");
                 codCursoAsignatura = sc.nextLine();
                 
                  if (codCursoAsignatura.isEmpty()) {
-                    throw new Exception("Debe introducir el código del curso.");
+                    throw new Exception("Debe introducir el código de la asignatura.");
                 }
                 codCurso = codCursoAsignatura.substring(0, 2).toUpperCase(); // Obtenemos el código del curso
                 
@@ -198,7 +198,7 @@ public class CursoAsignatura {
                 while(cadena != null){
                     indice = cadena.indexOf(",");
                     if(indice != -1){                        
-                        if (cadena.substring(0, indice).equalsIgnoreCase(codCursoAsignatura)) //Obtenemos el código del curso
+                        if (cadena.substring(0, indice).equalsIgnoreCase(codCursoAsignatura)) //Obtenemos el código de la asignatura
                             throw new Exception("El código del curso ya se encuentra en la lista");
                     }
                     cadena = fichero.readLine();                    
@@ -209,7 +209,7 @@ public class CursoAsignatura {
                 fichero.writeBytes(cadena);
                 
                 if (CentroEducativo.getTmCCASIGNA().containsKey(codCursoAsignatura)) { //Actualizamos el TreeMap
-                    CentroEducativo.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos el curso del treemap
+                    CentroEducativo.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos la asignatura al treemap
                 } else {
                     CentroEducativo.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
                     TablasCursos.cargaCursos(CentroEducativo.getTmCCASIGNA()); //volcamos los datos del fichero al TreeMap y lo actualizamos
@@ -217,7 +217,7 @@ public class CursoAsignatura {
                 System.out.println("Se ha añadido correctamente la asignatura en el fichero.");
                 System.out.println("Si desea añadir más asignaturas al fichero introduzca la letra: \"S\"");
                 continuar = sc.nextLine();
-                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
+                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo asignaturas
                 
             } catch (FileNotFoundException ex) {     //Si no se encuentra el fichero            
                 System.out.println("Ha ocurrido una excepción: " + ex.getMessage());
@@ -232,7 +232,7 @@ public class CursoAsignatura {
                 sc.nextLine();
                 System.out.println("Si desea añadir más asignaturas al fichero introduzca la letra: \"S\"");
                 continuar = sc.nextLine();
-                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
+                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo asignaturas
             } finally{
                 if (fichero != null) {
                     try {
@@ -248,7 +248,7 @@ public class CursoAsignatura {
     
     
     /**
-     * Imprime por pantalla lasignaturas que se encuentran en el fichero
+     * Imprime por pantalla las asignaturas que se encuentran en el fichero
      * @return String codigo y nombre de las asignaturas
      */
     

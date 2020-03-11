@@ -93,13 +93,16 @@ public class CentroEducativo {
         //Cursos.altaCurso();
         //Cursos.bajaCurso();
         //CursoAsignatura.altaCursoAsignatura();
-        CursoAsignatura.bajaCursoAsignatura();
+        //CursoAsignatura.bajaCursoAsignatura();
+        //SucursalesBancarias.bajaSucursalBancaria();
         
-        for (Map.Entry<String, String> entry : tmCCASIGNA.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            System.out.println(key + " => " + value);
-        }
+        SucursalesBancarias.altaSucursalBancaria();
+        
+//        for (Map.Entry<String, String> entry : tmCCASIGNA.entrySet()) {
+//            String key = entry.getKey();
+//            String value = entry.getValue();
+//            System.out.println(key + " => " + value);
+//        }
 
         
         
