@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class Cursos {
     
-    public static final String cursoFilePath = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\profesoresyAlumnos\\Profesores\\";
+    public static final String cursoFilePath = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\";
     public static final String cursoFileName = "cursos.txt";
     public static final String filePath = cursoFilePath + cursoFileName;
     
@@ -235,6 +235,9 @@ public class Cursos {
                 repetir = true;
                 System.out.println("Ha ocurrido una excepción: " + ex.getMessage());
                 sc.nextLine();
+                System.out.println("Si desea añadir más cursos al fichero introduzca la letra: \"S\"");
+                continuar = sc.nextLine();
+                repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
             } finally{
                 if (fichero != null) {
                     try {
