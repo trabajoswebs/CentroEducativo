@@ -11,9 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static profesorampliado.Cursos.sc;
 
 /**
  *
@@ -25,6 +25,7 @@ public class CursoAsignatura {
     public static final String curAsigFileName = "cursoAsignatura.txt";
     public static final String curAsigFilePath = directory + curAsigFileName;
     
+    static Scanner sc = new Scanner(System.in);
     
     
     /**

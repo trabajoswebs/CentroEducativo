@@ -94,9 +94,9 @@ public class CentroEducativo {
         //Cursos.bajaCurso();
         //CursoAsignatura.altaCursoAsignatura();
         //CursoAsignatura.bajaCursoAsignatura();
-        //SucursalesBancarias.bajaSucursalBancaria();
-        
-        SucursalesBancarias.altaSucursalBancaria();
+        //SucursalesBancarias.bajaSucursalBancaria();        
+        //SucursalesBancarias.altaSucursalBancaria();
+        SucursalesBancarias.subMenuSucursalesBancarias();
         
 //        for (Map.Entry<String, String> entry : tmCCASIGNA.entrySet()) {
 //            String key = entry.getKey();

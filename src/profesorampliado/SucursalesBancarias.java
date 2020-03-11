@@ -11,9 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static profesorampliado.Cursos.sc;
 
 /**
  *
@@ -25,7 +25,7 @@ public class SucursalesBancarias {
     public static final String sucBancFileName = "SucursalesBancarias.txt";
     public static final String sucBancFilePath = directory + sucBancFileName;
     
-    
+    static Scanner sc = new Scanner(System.in);
     /**
      * Se da de alta a un curso en el fichero SucursalesBancarias.txt
      */
@@ -38,7 +38,8 @@ public class SucursalesBancarias {
         boolean repetir = false;
         
         do {
-                System.out.println("\nListado de las sucursales bancarias: ");
+                sc.nextLine(); //Limpiamos el buffer
+                System.out.println("\nListado de las sucursales bancarias:\n");
                 System.out.println(imprimeSucursalesBancarias());
 
             try {
@@ -134,10 +135,11 @@ public class SucursalesBancarias {
         
        
         do {
+            sc.nextLine(); //Limpiamos el buffer
             boolean existeCodigo = false;
             
             try {
-                System.out.println("\nListado de las sucursales bancarias: ");
+                System.out.println("\nListado de las sucursales bancarias:\n");
                 System.out.println(imprimeSucursalesBancarias());
                 System.out.print("Indique el código de la sucursal que desea eliminar: ");
                 codSucursal = sc.nextLine();
@@ -146,7 +148,7 @@ public class SucursalesBancarias {
                     throw new Exception("Debe introducir un código de asignatura válido.");
                 }
                 
-                if (! CentroEducativo.getTmEEEESSSS().containsKey(codSucursal)) { //Comprobamos la existencia del código del curso
+                if (! CentroEducativo.getTmEEEESSSS().containsKey(codSucursal)) { //Comprobamos la existencia del código de la sucursal bancaria
                     throw new Exception("La sucursal no existe.");
                 }
                 
@@ -288,5 +290,38 @@ public class SucursalesBancarias {
 
         }
         return cursos.toString();
+    }
+    
+    public static void subMenuSucursalesBancarias(){
+        int opcion = 0;
+        boolean continuar = true;
+        
+        do{  
+            System.out.println("\n*************** MANTENIMIENTO DE LAS SUCURSALES BANCARIAS ***************\n");
+            System.out.println("\t1. ALTA DE SUCURSALES BANCARIAS");
+            System.out.println("\t2. BAJA DE SUCURSALES BANCARIAS");
+            System.out.println("\t3. MOSTRAR SUCURSALES");            
+            System.out.println("\t0. SALIR SUCURSALES");            
+            System.out.print("\n\t   Opcion seleccionada: ");
+            
+            opcion = sc.nextInt();
+            
+            switch(opcion){
+                case 0: default:
+                    sc.nextLine();
+                    continuar = false;
+                    break;
+                case 1:
+                    altaSucursalBancaria();
+                    break;
+                case 2:
+                    bajaSucursalBancaria();
+                    break;
+                case 3:
+                    System.out.println(imprimeSucursalesBancarias());                   
+                    break;
+            }
+            
+        }while(continuar);
     }
 }
