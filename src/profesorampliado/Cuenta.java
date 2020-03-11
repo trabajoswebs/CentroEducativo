@@ -5,6 +5,10 @@
  */
 package profesorampliado;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.TreeMap;
 
@@ -14,7 +18,9 @@ import java.util.TreeMap;
  * @author Johan Manuel
  */
 public class Cuenta {
-
+    
+    public static final String EntBancariasFilePath = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\EntidadesBancarias.txt";
+    public static final String SucurBancariasFilePath = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\SucursalesBancarias.txt";
     private double saldo;
 
     public Cuenta() {
@@ -198,32 +204,57 @@ public class Cuenta {
      * @param tmEEEE
      */
     static void cargaEntidadesBancarias(TreeMap<String, String> tmEEEE){
-        tmEEEE.put("2100", "Caixabank");
-        tmEEEE.put("0081", "Banco Sabadell");
-        tmEEEE.put("1465", "ING Bank");
-        tmEEEE.put("0081", "Banco Sabadell");
-        tmEEEE.put("2038", "Bankia");
-        tmEEEE.put("0049", "Banco Santander");
+        cargaDatos(EntBancariasFilePath, CentroEducativo.tmEEEE);
     }
     static void cargaSucursalesBancarias(TreeMap<String, String> tmEEEESSSS){
-        tmEEEESSSS.put("21004231", "Elche Urbana 1");
-        tmEEEESSSS.put("21004232", "Elche Urbana 2");
-        tmEEEESSSS.put("21004233", "Elche Urbana 3");
-        tmEEEESSSS.put("21004234", "Elche Urbana 4");
-        tmEEEESSSS.put("21003894", "Elche Urbana 5");
-        tmEEEESSSS.put("00816781", "Elche Urbana 1");
-        tmEEEESSSS.put("00816782", "Elche Urbana 3");
-        tmEEEESSSS.put("00816783", "Elche Urbana 3");
-        tmEEEESSSS.put("00816784", "Elche Urbana 4");
-        tmEEEESSSS.put("14654561", "Elche Urbana 1");
-        tmEEEESSSS.put("14654562", "Elche Urbana 2");
-        tmEEEESSSS.put("00811152", "Elche Urbana 1");
-        tmEEEESSSS.put("00811153", "Elche Urbana 2");
-        tmEEEESSSS.put("00811152", "Elche Urbana 3");
-        tmEEEESSSS.put("20384441", "Elche Urbana 1");
-        tmEEEESSSS.put("00492221", "Elche Urbana 1");
-        tmEEEESSSS.put("00492222", "Elche Urbana 2");
-        tmEEEESSSS.put("00491111", "Elche Urbana 1");
+        cargaDatos(SucurBancariasFilePath, CentroEducativo.tmEEEESSSS);
+    }
+    
+    /**
+     * Lee los datos que se necuentra en el fichero y los carga en el treeMap
+     */
+    public static void cargaDatos(String filePath, TreeMap<String, String> tm){
+        FileReader fr = null;
+        BufferedReader entrada = null;
+        int indice = 0;
+        String cadena, key, value;
+        
+        try {
+            fr = new FileReader(filePath);
+            entrada = new BufferedReader(fr);
+            
+            cadena = entrada.readLine();
+            
+            while(cadena != null){
+                indice = cadena.indexOf(",");
+                if (indice != -1) {
+                    key = cadena.substring(0, indice).toUpperCase();
+                    value = cadena.substring(indice + 1 ).toUpperCase();
+                    tm.put(key, value);
+                }
+                cadena = entrada.readLine();
+            }
+        }
+        catch (FileNotFoundException fnf) {
+            fnf.printStackTrace();
+        }
+        catch (IOException ioe) {
+            System.out.println("Ha ocurrido una excepción: " + ioe.getMessage());    
+        }
+        catch (Exception e) {
+            System.out.println("Ha ocurrido una excepción: " + e.getMessage());   
+        }finally{
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+                if(entrada != null){
+                    entrada.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Se ha producido un error al intentar cerrar el fichero: " + e.getMessage());
+            }
+        }
     }
 
 

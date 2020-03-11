@@ -100,7 +100,14 @@ public class Cursos {
                  if (destFichero.delete()) { //Borramos el fichero anterior
                      
                         if (ficheroOriginal.renameTo(destFichero)) {//Renombramos el fichero
-                    
+                            
+                            if (CentroEducativo.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
+                                CentroEducativo.getTmCC().remove(codCurso); // Eliminamos el curso del treemap
+                            }else{
+                                CentroEducativo.getTmCC().clear();//Eliminamos todos los datos del TreeMap
+                                TablasCursos.cargaCursos(CentroEducativo.getTmCC()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
+                            }
+
                         System.out.println("Se ha eliminado correctamente el curso  " + codCurso + " del fichero.");
                         System.out.println("Si desea eliminar más cursos de la lista introduzca la letra: \"S\"");
 
@@ -185,6 +192,7 @@ public class Cursos {
 
     /**
      * Se da de alta a un curso en el fichero cursos.txt
+     * @param tmCC
      */
     public static void altaCurso() {        
         String codCurso, nombreCurso, cadena, continuar;        
@@ -219,6 +227,13 @@ public class Cursos {
                 fichero.seek(size);// nos situamos al final del fichero
                 cadena = codCurso.toUpperCase() + "," + nombreCurso + "\n";
                 fichero.writeBytes(cadena);
+                
+                if (CentroEducativo.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
+                    CentroEducativo.getTmCC().put(codCurso, "," + nombreCurso + "\n"); // añadimos el curso del treemap
+                } else {
+                    CentroEducativo.getTmCC().clear();//Eliminamos todos los datos del TreeMap
+                    TablasCursos.cargaCursos(CentroEducativo.getTmCC()); //volcamos los datos del fichero al TreeMap y lo actualizamos
+                }
                 System.out.println("Se ha añadido correctamente el curso en el fichero.");
                 System.out.println("Si desea añadir más cursos al fichero introduzca la letra: \"S\"");
                 continuar = sc.nextLine();

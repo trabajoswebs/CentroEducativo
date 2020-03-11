@@ -86,16 +86,18 @@ public class CentroEducativo {
     public static void main(String[] args) {
 //        Cuenta.cargaEntidadesBancarias(tmEEEE);
 //        Cuenta.cargaSucursalesBancarias(tmEEEESSSS);
-//        TablasCursos.cargaCursos(tmCC);
+
+        //TablasCursos.cargaCursos(tmCC);
+        Cursos.bajaCurso();
+
+        for (Map.Entry<String, String> entry : tmCC.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            System.out.println(key + " => " + value);
+        }
 //
-//        for (Map.Entry<String, String> entry : tmCC.entrySet()) {
-//            String key = entry.getKey();
-//            String value = entry.getValue();
-//
-//            System.out.println(key + " => " + value);
-//        }
-//
-//        TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
+//      TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
 //        for (Map.Entry<String, String> entry : tmCCASIGNA.entrySet()) {
 //            String key = entry.getKey();
 //            String value = entry.getValue();
