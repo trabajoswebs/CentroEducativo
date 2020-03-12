@@ -19,8 +19,8 @@ import java.util.TreeMap;
  */
 public class Cuenta {
     
-    public static final String EntBancariasFilePath = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\EntidadesBancarias.txt";
-    public static final String SucurBancariasFilePath = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\SucursalesBancarias.txt";
+    public static final String EntBancariasFilePath = "Profesores\\EntidadesBancarias.txt";
+    public static final String SucurBancariasFilePath = "Profesores\\SucursalesBancarias.txt";
     private double saldo;
 
     public Cuenta() {

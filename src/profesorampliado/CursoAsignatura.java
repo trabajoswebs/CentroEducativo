@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class CursoAsignatura {
     
-    public static final String directory = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\";
+    public static final String directory = "Profesores\\";
     public static final String curAsigFileName = "cursoAsignatura.txt";
     public static final String curAsigFilePath = directory + curAsigFileName;
     

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class SucursalesBancarias {
     
-    public static final String directory = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\";
+    public static final String directory = "Profesores\\";
     public static final String sucBancFileName = "SucursalesBancarias.txt";
     public static final String sucBancFilePath = directory + sucBancFileName;
     
@@ -37,8 +37,7 @@ public class SucursalesBancarias {
         int indice;
         boolean repetir = false;
         
-        do {
-                sc.nextLine(); //Limpiamos el buffer
+        do {                          
                 System.out.println("\nListado de las sucursales bancarias:\n");
                 System.out.println(imprimeSucursalesBancarias());
 
@@ -102,7 +101,6 @@ public class SucursalesBancarias {
             } catch (Exception ex) {                
                 repetir = true;
                 System.out.println("Ha ocurrido una excepción: " + ex.getMessage());
-                sc.nextLine();
                 System.out.println("Si desea añadir más Sucursales Bancarias al fichero introduzca la letra: \"S\"");
                 continuar = sc.nextLine();
                 repetir =(continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo sucursal bancaria
@@ -111,12 +109,12 @@ public class SucursalesBancarias {
                     try {
                         fichero.close();
                     } catch (IOException ex) {
-                        Logger.getLogger("Ha ocurrido una excepción: " +Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger("Ha ocurrido una excepción: " + Cursos.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
         } while (repetir);
-
+        
     }
     
     
@@ -134,11 +132,11 @@ public class SucursalesBancarias {
         boolean repetir = false;
         
        
-        do {
-            sc.nextLine(); //Limpiamos el buffer
-            boolean existeCodigo = false;
+        do {      
             
             try {
+                       
+                boolean existeCodigo = false;
                 System.out.println("\nListado de las sucursales bancarias:\n");
                 System.out.println(imprimeSucursalesBancarias());
                 System.out.print("Indique el código de la sucursal que desea eliminar: ");
@@ -230,11 +228,10 @@ public class SucursalesBancarias {
                 sc.nextLine();
             } catch (Exception ex) {
                 System.out.println("Error: " + ex.getMessage());
-                sc.nextLine();
                 System.out.println("Si desea eliminar alguna sucursal bancaria de la lista introduzca la letra: \"S\"");
                 continuar = sc.nextLine();
                 repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo sucursales bancarias
-
+                
             } finally {
                 try {
                     if (fichero != null) {
@@ -245,11 +242,11 @@ public class SucursalesBancarias {
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
-                }
+                }                
             }
 
         } while (repetir);
-
+        
     }
     
     /**
@@ -296,7 +293,7 @@ public class SucursalesBancarias {
         int opcion = 0;
         boolean continuar = true;
         
-        do{  
+        do{             
             System.out.println("\n*************** MANTENIMIENTO DE LAS SUCURSALES BANCARIAS ***************\n");
             System.out.println("\t1. ALTA DE SUCURSALES BANCARIAS");
             System.out.println("\t2. BAJA DE SUCURSALES BANCARIAS");
@@ -308,20 +305,26 @@ public class SucursalesBancarias {
             
             switch(opcion){
                 case 0: default:
-                    sc.nextLine();
+                    sc.nextLine(); //Limpiamos el Buffer
                     continuar = false;
                     break;
                 case 1:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    System.out.println("\n1. ALTA DE SUCURSALES BANCARIAS");
                     altaSucursalBancaria();
                     break;
                 case 2:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    System.out.println("\n2. BAJA DE SUCURSALES BANCARIAS");
                     bajaSucursalBancaria();
                     break;
                 case 3:
+                    System.out.println("\n3. MOSTRAR SUCURSALES");
                     System.out.println(imprimeSucursalesBancarias());                   
                     break;
             }
             
         }while(continuar);
+        
     }
 }

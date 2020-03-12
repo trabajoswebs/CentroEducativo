@@ -17,7 +17,7 @@ import java.util.TreeMap;
  * @author Acer
  */
 public class TablasCursos {
-    public static final String CAFilePath = "C:\\Users\\Acer\\Documents\\Formacion Profesional Desarrollo Aplicaciones Web\\Practica java\\Practicas Personas\\centroeducativo\\Profesores\\CursoAsignatura.txt";
+    public static final String CAFilePath = "Profesores\\CursoAsignatura.txt";
     
     
     static void cargaCursos(TreeMap<String, String> tmCC){
