@@ -137,53 +137,44 @@ public class Alumno extends Persona{
      * @param evaluacion
      * @return 
      */
-    String boletinNotas(String curso, int evaluacion) {
+    String boletinNotas(String curso, int evaluacion) throws Exception {
         String[] eval = {"Primera Evaluación", "Segunda Evaluación", "Tercera Evaluación", "Evaluación Ordinaria", "Evaluación Extraordinaria"};
         StringBuilder cadena = new StringBuilder();
-        boolean correcto = true;
 
-        do {
-            try {
-                if (CentroEducativo.tmCC.containsKey(curso)) { //Se comprueba que el codigo del curse este en la lista de codigos
-                    if (evaluacion >= 1 && evaluacion <= 5) {  //Se comprueba que la evaluacion de las notas se comprendan entre 0 y 5
-                        
-                        if (this.tmAsignaturasAlumno.firstKey().substring(0, 2).equals(curso)) {
-                            cadena.append("\nBoletín de notas del alumno/a ");
-                            cadena.append(this.getApellidos() + ", " + this.getNombre() + ": ");
-                        }
+        if (CentroEducativo.tmCC.containsKey(curso)) { //Se comprueba que el codigo del curse este en la lista de codigos
+            if (evaluacion >= 1 && evaluacion <= 5) {  //Se comprueba que la evaluacion de las notas se comprendan entre 0 y 5
 
-                        Iterator it = this.tmAsignaturasAlumno.keySet().iterator();
-                        String key, cod;
-                        int calificacion;
-                        Notas notas = new Notas();
-
-                        while (it.hasNext()) {
-                            key = (String) it.next();
-                            cod = key.substring(0, 2);
-                            if (cod.equalsIgnoreCase(curso)) { //Comparo si las dos letras del codigo del curso son iguales
-                                notas = this.tmAsignaturasAlumno.get(key);
-                                calificacion = notas.getNotas()[evaluacion - 1];
-                                cadena.append("\nLa asignatura ");
-                                cadena.append(CentroEducativo.tmCCASIGNA.get(key));
-                                cadena.append(" (");
-                                cadena.append(key);
-                                cadena.append(") tiene una calificación en la " + eval[evaluacion] + " de: ");
-                                cadena.append(calificacion);
-                                cadena.append(" puntos.");
-                            }
-                        }
-                    } else {
-                        throw new Exception("El número de evaluaciones es incorrecto. Indique de 1 a 5");
-                    }
-                } else {
-                    throw new Exception("El nombre del curso no existe. ");
+                if (this.tmAsignaturasAlumno.firstKey().substring(0, 2).equals(curso)) {
+                    cadena.append("\nBoletín de notas del alumno/a ");
+                    cadena.append(this.getApellidos() + ", " + this.getNombre() + ": ");
                 }
-            } catch (Exception e) {
-                correcto = false;
-                System.out.println("Ha occurrido una excepción: " + e.getMessage());
-            }
 
-        } while (! correcto);
+                Iterator it = this.tmAsignaturasAlumno.keySet().iterator();
+                String key, cod;
+                int calificacion;
+                Notas notas = new Notas();
+
+                while (it.hasNext()) {
+                    key = (String) it.next();
+                    cod = key.substring(0, 2);
+                    if (cod.equalsIgnoreCase(curso)) { //Comparo si las dos letras del codigo del curso son iguales
+                        notas = this.tmAsignaturasAlumno.get(key);
+                        calificacion = notas.getNotas()[evaluacion - 1];
+                        cadena.append("\nLa asignatura ");
+                        cadena.append(CentroEducativo.tmCCASIGNA.get(key));
+                        cadena.append(" (");
+                        cadena.append(key);
+                        cadena.append(") tiene una calificación en la " + eval[evaluacion] + " de: ");
+                        cadena.append(calificacion);
+                        cadena.append(" puntos.");
+                    }
+                }
+            } else {
+                throw new Exception("El número de evaluaciones es incorrecto. Indique de 1 a 5");
+            }
+        } else {
+            throw new Exception("El nombre del curso no existe. ");
+        }
 
         return cadena.toString();
     }

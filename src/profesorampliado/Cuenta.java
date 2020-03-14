@@ -182,7 +182,7 @@ public class Cuenta {
             banco = tmEEEE.get(EEEE);
             System.out.println("banco " + banco);
         } else {
-            throw new Exception("Código bancario inexistente");
+            //throw new Exception("Código bancario inexistente");
         }
         TreeMap<String, String> tmEEEESSSS = new TreeMap<>();
         String sucursal = "";
@@ -194,7 +194,7 @@ public class Cuenta {
             sucursal = tmEEEESSSS.get(EEEESSSS);
             System.out.println("Sucursal " + sucursal);
         } else {
-            throw new Exception("Código bancario inexistente");
+            //throw new Exception("Código bancario inexistente");
         }
     }
 

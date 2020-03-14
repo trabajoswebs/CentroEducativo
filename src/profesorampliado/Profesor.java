@@ -24,7 +24,15 @@ public class Profesor extends Persona{
     
     private TreeMap<String, String> tmAsignaturas;//asignaturas que imparte
 
-    public Profesor() {}
+    public TreeMap<String, String> getTmAsignaturas() {
+        return tmAsignaturas;
+    }
+
+    public void setTmAsignaturas(TreeMap<String, String> tmAsignaturas) {
+        this.tmAsignaturas = tmAsignaturas;
+    }
+
+    public Profesor() {this.horasExtras = new int[12];}
     
     
     public Profesor(double sueldoBase, double tipoIRPF, String cuentaIBAN, String nombre, String apellidos, String calle, String codigoPostal, String ciudad, String dni, String fechaNacimiento) {
@@ -177,7 +185,7 @@ public class Profesor extends Persona{
         while(it.hasNext()){
             key = (String) it.next();
             String asig = this.tmAsignaturas.get(key);
-            sb.append(key + ": " + asig);
+            sb.append("\n" +key + ": " + asig);
         }
         return sb.toString();
     }

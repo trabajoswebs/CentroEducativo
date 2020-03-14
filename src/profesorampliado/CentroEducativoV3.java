@@ -39,56 +39,11 @@ public class CentroEducativoV3 {
             TablasCursos.cargaCursos(tmCC);
             TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
 
-            //Carga de profesores
-            Profesor p = new Profesor(1500.0, 10.0, "ES2400811152680006077615", "Nombre1", "Apellidos1", "calle1", "03202",
-                    "Elche", "54060067Q", "12/12/1985");
-            String key = p.getApellidos() + ", " + p.getNombre();
-            lista.put(key, p);
-
-            p = new Profesor(1200.0, 10.0, "ES2400811152680006077615", "Nombre3", "Apellidos3", "calle3", "03300",
-                    "Cuenca", "45727569G", "19/10/1988");
-            key = p.getApellidos() + ", " + p.getNombre();
-            lista.put(key, p);
-
-            p = new Profesor(1500.0, 10.0, "ES2400811152680006077615", "Nombre2", "Apellidos2", "calle2", "035555",
-                    "Alicante", "22222222J", "10/07/1979");
-            key = p.getApellidos() + ", " + p.getNombre();
-            lista.put(key, p);
-
-            p = new Profesor(1600.0, 10.0, "ES2400811152680006077615", "Zulay", "Gonzalez", "Plaza Castilla", "38680",
-                    "Guia de Isora", "21309422z", "03/06/1979");
-            key = p.getApellidos() + ", " + p.getNombre();
-
-            lista.put(key, p);
-
-            //Carga de alumnos
-            Alumno al = new Alumno("1E", "Abadía", "Castro", "Plaza Castilla", "03202", "Elche", "54060067Q", "23/10/1984");
-            Notas not = new Notas();
-            not.setNotas(new int[]{8, 7, 8, 9, 10});
-            TreeMap t = new TreeMap<String, Notas>();
-            t.put("1EREDES", not);
-            t.put("1EOFIMA", not);
-            t.put("1ESISOP", not);
-            al.setTmAsignaturasAlumno(t);
-            key = al.getApellidos() + ", " + al.getNombre();
-            lista.put(key, al);
-
-            al = new Alumno("1E", "Somaya", "Fikri", "Plaza Castilla", "03202", "Elche", "45727569G", "18/10/1988");
-            not = new Notas();
-            not.setNotas(new int[]{6, 6, 8, 5, 7});
-            t = new TreeMap<String, Notas>();
-            t.put("1EREDES", not);
-            t.put("1EINGLES", not);
-            t.put("1ESISOP", not);
-            al.setTmAsignaturasAlumno(t);
-            key = al.getApellidos() + ", " + al.getNombre();
-            lista.put(key, al);
-
             // CREAMOS UN FICHERO PARA GUARDAR LOS PROFESORES
             File ruta = new File("Profesores\\");//crea un objeto con una ruta
             File fPersonas = new File(ruta, "Personas3.txt");//crea un objeto fichero en la ruta
 
-            /*
+            
             try {
                 if (fPersonas.exists()) {//Si existe el fichero podemos leer los registros que tiene
                     lista = FuncionesFicheros.obtenerTreeMapDeArchivo(fPersonas);
@@ -98,22 +53,7 @@ public class CentroEducativoV3 {
             } catch (IOException e) {
                 System.out.println("Ha ocurrido un error con el fichero: " + e.getMessage());
             }
-            */
-            try{
-                FuncionesFicheros.almacenarColPersonasEnArchivo(lista, fPersonas);
-            }catch(IOException e){
-                System.out.println("Error: -> " + e.getMessage());
-            }
-            
-            
-            try{
-                FuncionesFicheros.obtenerTreeMapDeArchivo(fPersonas);
-            }catch(IOException e){
-                System.out.println("Error: -> " + e.getMessage());
-            }
-            
-            
-
+         
             Boolean salir = false;
 
             int option = 0;
@@ -159,6 +99,21 @@ public class CentroEducativoV3 {
                         break;
                     case 0:
                     default:
+                        try {
+                        /*
+                            Iterator it = lista.keySet().iterator();
+
+                            while (it.hasNext()) {
+                                String key = (String) it.next();
+                                Persona per = (Persona) lista.get(key);
+                                System.out.println(per.getNombre() + " " + per.getApellidos());
+                            }
+                            */
+                            FuncionesFicheros.almacenarColPersonasEnArchivo(lista, fPersonas);
+                        } catch (IOException e) {
+                            System.out.println("Error: -> " + e.getMessage());
+                        }
+                        
                         salir = true;
                         break;
 
@@ -315,13 +270,13 @@ public class CentroEducativoV3 {
 
                     case 6:
                         System.out.println("Opción seleccionada: Datos de las clases que imparten los profesores.");
+                        
                         it = lista.keySet().iterator();
-
                         while (it.hasNext()) {
                             key = (String) it.next();
                             if (lista.get(key) instanceof Profesor) {
                                 profe = (Profesor) lista.get(key);
-                                System.out.println(profe.imprimeAsignaturas());
+                                System.out.println(profe.imprimeAsignaturas());                        
                                 System.out.println();
                             }
                         }
@@ -565,19 +520,24 @@ public class CentroEducativoV3 {
                     case 7:
                         sc.nextLine();
                         System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
-
-                        System.out.println("Indique el código del curso: ");
-                        String codCurso = sc.nextLine();
-                        System.out.println("Indique el número de la evaluación: ");
-                        int eval = sc.nextInt();
-                        it = lista.keySet().iterator();
-                        while (it.hasNext()) {
-                            key = (String) it.next();
-                            if (lista.get(key) instanceof Alumno) {
-                                alumn = (Alumno) lista.get(key);
-                                System.out.println(alumn.boletinNotas(codCurso, eval));
+                        
+                        try {
+                            System.out.println("Indique el código del curso: ");
+                            String codCurso = sc.nextLine();
+                            System.out.println("Indique el número de la evaluación: ");
+                            int eval = sc.nextInt();
+                            it = lista.keySet().iterator();
+                            while (it.hasNext()) {
+                                key = (String) it.next();
+                                if (lista.get(key) instanceof Alumno) {
+                                    alumn = (Alumno) lista.get(key);
+                                    System.out.println(alumn.boletinNotas(codCurso, eval));
+                                }
                             }
+                        } catch (Exception e) {
+                            System.out.println("Ha occurrido una excepción: " + e.getMessage());
                         }
+                        
                         break;
                     default:
                         break;

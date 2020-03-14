@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -35,6 +34,7 @@ public class FuncionesFicheros {
         char separador = '#';
         Persona per;
         StringBuilder cadena = new StringBuilder();
+        
         try {
             if (! fichero.exists()) fichero.createNewFile(); //Si el fichero no existiese se crea
             
@@ -73,6 +73,7 @@ public class FuncionesFicheros {
                             });
                             
                             cadena.append("\n"); //Salto de linea al final de la cadena
+                            salida.println(cadena.toString());
                             break;
                         case 'P': //Objeto Profesor
                             Profesor profesor = (Profesor) per;//Cast al objeto Profesor
@@ -91,13 +92,21 @@ public class FuncionesFicheros {
                                 cadena.append( horas + separador);
                             }
                             cadena.append(Double.toString(profesor.getTipoIRPF()) + separador);
-                            cadena.append(profesor.getCuentaIBAN() + separador);
+                            cadena.append(profesor.getCuentaIBAN() + separador);                            
+                            it = profesor.getTmAsignaturas().keySet().iterator();
+                            
+                            while(it.hasNext()){
+                                String codCurso = (String) it.next();
+                                String nomCurso = profesor.getTmAsignaturas().get(codCurso);
+                                cadena.append(codCurso + separador);
+                                cadena.append(nomCurso + separador);
+                            }
                             cadena.append("\n"); //Salto de linea al final de la cadena
+                            salida.println(cadena.toString());
                         break;
                     }
                     
-                }
-                salida.println(cadena.toString());
+                }  
                 salida.flush();
             }
         } catch(FileNotFoundException fnf){
@@ -136,16 +145,15 @@ public class FuncionesFicheros {
             entrada = new BufferedReader(fr);
             cadena = entrada.readLine();
             
-            
             while(cadena != null){
                 indice = cadena.indexOf("#"); // obtiene la primera coincidencia
                 
                 if (indice != -1) {
-                    tipo = cadena.charAt(0);
+                    tipo = cadena.charAt(0); //  Obtiene el caracter que define  al objeto (Alumno|Profesor)
                     switch (tipo) {
-                        case 'A':                            
+                        case 'A':    //Alumno                        
                             TreeMap<String,Notas> tmAsignaturasAlumno = new TreeMap<>();
-                            //System.out.println("*************************AQUII*****************************");
+                            
                             ArrayList<String> al = new ArrayList<>();
                             
                             Alumno alumno = new Alumno();
@@ -164,6 +172,7 @@ public class FuncionesFicheros {
                                     registro = cadena.substring(indiceInicial, indiceFinal ); //Obtenemos los datos
                                     al.add(registro);
                                    contador++;
+                                    
                                 }
                                 
                                 indiceInicial = indiceFinal;                                
@@ -179,8 +188,9 @@ public class FuncionesFicheros {
                             alumno.setCurso(al.get(7)); // Indice del array se encuentra en el valor 7
                             
                             int nroAsignaturas = (contador - 9) / 6; // Con esta operación se obtiene el número de asignaturas matriculadas por el alumno
-                            //Se resta el número total de almohadillas "#" menos 9 (que es donde comienza el registro de la primera asignatura) dividido entre 6 que es el número de almohadillas "#" que ocupa cada asignatura con sus calificaciones
+                            //Se resta el número total de almohadillas "#" menos 9 (a partir de ahí es donde comienza el registro de la primera asignatura) dividido entre 6 que es el número de almohadillas "#" que ocupa cada asignatura con sus calificaciones
                             // 1 asignatura + 5 calificaciones
+                            
                             Notas notas = new Notas();
                             int[] evaluaciones = new int[5];
                             int indiceAsignaturas;
@@ -200,42 +210,92 @@ public class FuncionesFicheros {
                             }
                             
                             alumno.setTmAsignaturasAlumno(tmAsignaturasAlumno);
-                            key = alumno.getApellidos() + ", " + alumno.getNombre(); // Creamos la clave de referencia del treeMap
-                            
+                            key = alumno.getApellidos() + ", " + alumno.getNombre(); // Creamos la clave de referencia del treeMap                            
                             lista.put(key, alumno);//Lo añadimos el objeto alumno al treeMap
-                            
-                            
-                            lista.entrySet().forEach((entry) -> {
-                                System.out.println("Clave: " + entry.getKey());
-                                Alumno a = (Alumno) entry.getValue();
-                                for (Map.Entry<String, Notas> entry1 : tmAsignaturasAlumno.entrySet()) {
-                                    String key1 = entry1.getKey();
-                                    Notas value = entry1.getValue();
-                                    System.out.println("Key " + key1 );
-                                    for (int i = 0; i < value.getNotas().length; i++) {
-                                        System.out.println(value.getNotas()[i]);
-                                    }
-                                }
-                            });
-                            
+          
                             break;
-                        case 'B':
-                            Profesor profesor = new Profesor();
                             
+                        case 'P'://Profesores
+                            Profesor profesor = new Profesor();
+                            TreeMap<String,String> tmAsignaturasProfesor = new TreeMap<>();
+                            ArrayList<String> pro = new ArrayList<>();
+                            
+                            indiceInicial = indice; // Obtenemos el indice de la primer almohadilla "#". De ahi partiremos para obtener los datos del alumno
+                            
+                            contador = 1; //Cuenta la cantidad de almohadillas que contiene cada cadena
+                            
+                            while (indiceInicial != -1) {
+                                
+                                indiceInicial++; // Aumentamos en uno +1 el punto de partida para no leer el mismo resultado
+                                
+                                indiceFinal = cadena.indexOf("#", indiceInicial); //Obtenemos el indice de la siguiente almohadilla "#" en caso que exista
+                                
+                                if (indiceFinal != -1) {
+                                    registro = cadena.substring(indiceInicial, indiceFinal ); //Obtenemos los datos
+                                    pro.add(registro);
+                                   contador++;
+                                    
+                                }
+                                
+                                indiceInicial = indiceFinal;                                
+                            }
+                            
+                            profesor.setNombre(pro.get(0));
+                            profesor.setApellidos(pro.get(1));
+                            profesor.setCalle(pro.get(2));
+                            profesor.setCodigoPostal(pro.get(3));
+                            profesor.setCiudad(pro.get(4));
+                            profesor.setDni(pro.get(5));
+                            profesor.setFechaNacimiento(pro.get(6));
+                            profesor.setSueldoBase(Double.valueOf(pro.get(7))); // Indice del array se encuentra en el valor 7
+                            
+                            for (int i = 0; i < 12; i++) {  
+                                profesor.setHorasExtra(i , Integer.valueOf(pro.get(7 + 1 + i))); // Establecemos las horas extras de los 12 meses del año
+                            }
+                            
+                            profesor.setTipoIRPF(Double.valueOf(pro.get(20)));
+                            profesor.setCuentaIBAN(pro.get(21));
+                            
+                            //Comprobamos que existen más datos en el array, lo que significa que el profesor tiene asignada X asignaturas
+                            if ( (pro.size() - 21) > 0) {
+                                
+                                String codCurso = null;
+                                String nombreCurso = null;
+                                
+                                for (int i = 22; i < pro.size(); i++) {
+                                    if (i % 2 == 0) { // los indices pares indican el codigo del curso y los impares el nombre
+                                        codCurso = pro.get(i);
+                                    }else{
+                                        nombreCurso = pro.get(i);
+                                    }
+                                    tmAsignaturasProfesor.put(codCurso, nombreCurso);
+                                }
+                            }
+                            
+                            profesor.setTmAsignaturas(tmAsignaturasProfesor);
                             key = profesor.getApellidos() + ", " + profesor.getNombre(); // Creamos la clave de referencia del treeMap
                             lista.put(key, profesor); //Lo añadimos al treeMap
                             break;
+                            
+                        default:
+                            break;
                     }
-                   
-                    cadena = entrada.readLine();
                 }
-                
-
+                cadena = entrada.readLine();
             }
+                           
         } catch (FileNotFoundException fnf) {
             System.out.println(fnf.getMessage());
         } catch (Exception e) {
             System.out.println("Se ha producido un error: " + e.getMessage());
+        } finally {
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return lista;
     }
