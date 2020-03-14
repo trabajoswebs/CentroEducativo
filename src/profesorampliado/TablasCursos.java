@@ -7,26 +7,32 @@ package profesorampliado;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileNotFoundException; 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Acer
  */
 public class TablasCursos {
-    public static final String CAFilePath = "Profesores\\CursoAsignatura.txt";
+    public static final String DIRECTORY =  "Profesores\\";
+    public static final String CAFILEPATH = DIRECTORY + "CursoAsignatura.txt";
+    public static final String DTGENERALESFILENAME = "datosGenerales.txt";
     
     
     static void cargaCursos(TreeMap<String, String> tmCC){
-        cargaDatos(Cursos.filePath, CentroEducativo.tmCC);
+        cargaDatos(Cursos.FILEPATH, CentroEducativo.tmCC);
     }
     
     
     static void cargaCursosAsignaturas(TreeMap<String, String> tmCCASIGNA){
-        cargaDatos(CAFilePath, CentroEducativo.tmCCASIGNA);
+        cargaDatos(CAFILEPATH, CentroEducativo.tmCCASIGNA);
     }
     
     /**
@@ -74,6 +80,87 @@ public class TablasCursos {
                 }
             } catch (IOException e) {
                 System.out.println("Se ha producido un error al intentar cerrar el fichero: " + e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * carga las variables globales de curso academico y precio de las horas extras, si no existe el fichero lo crea, pide y graba los datos
+     */
+    public static void cargaGlobales(){
+        Scanner sc = new Scanner(System.in);
+        RandomAccessFile fichero = null;
+        String curso;
+        String importeHorasExtras;
+        String cadena;
+        
+        try {
+            crearFichero(DIRECTORY, DTGENERALESFILENAME); //Se crea el fichero si no existe            
+            fichero = new RandomAccessFile(DIRECTORY + DTGENERALESFILENAME, "rw");
+            
+            if (fichero.length() == 0) {
+                
+                boolean correcto = true;
+                
+                do {    
+                        System.out.println("\n\tAún no se ha establecido los datos del curso y del importe de las horas extras");
+                        System.out.println("\nIndique el curso académico actual: ");
+                        curso = sc.nextLine();
+                        System.out.println("Indique el precio de importe de las horas extras:");
+                        importeHorasExtras = sc.nextLine();                        
+                        
+                    try {                        
+                        if((curso.trim().isEmpty()) || importeHorasExtras.trim().isEmpty()) throw new Exception("Debe introducir los valores.");
+                        if (! curso.contains("/")) throw new Exception("Debe introducir correctamente el formato del curso academico: Año/Año");
+                        
+                        if (importeHorasExtras.contains(",")) { // Si contiene una coma "," la reemplazamos por un punto "."
+                            
+                            importeHorasExtras = importeHorasExtras.replace(",", ".");
+                        }
+                        
+                        cadena = curso + "#" + importeHorasExtras + "\n";
+                        fichero.writeBytes(cadena);
+                        CentroEducativo.setCurso(curso); //Establecemos el curso en la variable global
+                        double importe = Double.parseDouble(importeHorasExtras); // Convertimos el String en double
+                        CentroEducativo.setPagoPorHoraExtra(importe); //Establecemos el importe de las horas extras en la variable global
+                        System.out.println("Los datos se han registrado correctamente. ");
+                        correcto = true;
+                        System.out.println();
+                        
+                    }catch (IOException ioe) {
+                        System.out.println("Ha ocurrido un error de fichero: " + ioe.getMessage());
+                        correcto = false;                    
+                    } catch (Exception e) {
+                        System.out.println("Ha ocurrido un error: " + e.getMessage());
+                        correcto = false;
+                    }
+                    
+                } while (! correcto);
+
+            }else{
+                
+                fichero.seek(0); // Llevamos el puntero al inicio del documento
+                cadena = fichero.readLine(); // Obtenemos la lectura de la cadena
+                
+                if (cadena.length() > 0) { //Se comprueba que existe datos en la cadena
+                    int indice = cadena.indexOf("#"); //Se obtiene el indice de la almohadilla "#" que divide las dos variables Curso e importeHorasExtra
+                    CentroEducativo.setCurso(cadena.substring(0, indice)); //Obtenemos la cadena del curso y establecemos la variable global 
+                    Double iHorasExtras = Double.parseDouble(cadena.substring(indice + 1, cadena.length())); //Obtenemos la cadena del importe de horas extras y lo convertimos en double
+                    CentroEducativo.setPagoPorHoraExtra(iHorasExtras);
+                }
+            }
+
+        }catch(IOException ioe){
+            System.out.println("Error: " + ioe.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ha ocurido un error: " + e.getMessage());
+        }finally{
+            if (fichero != null) {
+                try {
+                    fichero.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(TablasCursos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

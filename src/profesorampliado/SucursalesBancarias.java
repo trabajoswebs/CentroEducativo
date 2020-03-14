@@ -21,9 +21,9 @@ import java.util.logging.Logger;
  */
 public class SucursalesBancarias {
     
-    public static final String directory = "Profesores\\";
-    public static final String sucBancFileName = "SucursalesBancarias.txt";
-    public static final String sucBancFilePath = directory + sucBancFileName;
+    public static final String DIRECTORY = "Profesores\\";
+    public static final String SUCRBANCFILENAME = "SucursalesBancarias.txt";
+    public static final String SUCRBANCFILEPATH = DIRECTORY + SUCRBANCFILENAME;
     
     static Scanner sc = new Scanner(System.in);
     /**
@@ -62,9 +62,9 @@ public class SucursalesBancarias {
                     throw new Exception("Debe introducir el nombre de la Sucursal Bancaria.");
                 }
 
-                TablasCursos.crearFichero(directory, sucBancFileName); //Se crea el fichero si no existe
+                TablasCursos.crearFichero(DIRECTORY, SUCRBANCFILENAME); //Se crea el fichero si no existe
                 
-                fichero = new RandomAccessFile(sucBancFilePath, "rw");
+                fichero = new RandomAccessFile(SUCRBANCFILEPATH, "rw");
                 cadena = fichero.readLine();
                 
                 while(cadena != null){
@@ -96,7 +96,7 @@ public class SucursalesBancarias {
                 sc.nextLine();
             } catch (IOException ex) {
                 repetir = true;
-                Logger.getLogger("Ha ocurrido una excepción: " + Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger("Ha ocurrido una excepción: " + SucursalesBancarias.class.getName()).log(Level.SEVERE, null, ex);
                 sc.nextLine();
             } catch (Exception ex) {                
                 repetir = true;
@@ -109,7 +109,7 @@ public class SucursalesBancarias {
                     try {
                         fichero.close();
                     } catch (IOException ex) {
-                        Logger.getLogger("Ha ocurrido una excepción: " + Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger("Ha ocurrido una excepción: " + SucursalesBancarias.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -124,7 +124,7 @@ public class SucursalesBancarias {
     
     public static void bajaSucursalBancaria(){
         
-        File ficheroActualizado = new File(directory + "sucursalesActualizadas.txt");
+        File ficheroActualizado = new File(DIRECTORY + "sucursalesActualizadas.txt");
         String codSucursal, cadena, continuar;
         int indice;
         RandomAccessFile fichero = null;
@@ -150,7 +150,7 @@ public class SucursalesBancarias {
                     throw new Exception("La sucursal no existe.");
                 }
                 
-                fichero = new RandomAccessFile(sucBancFilePath, "r");
+                fichero = new RandomAccessFile(SUCRBANCFILEPATH, "r");
                 
                 if(fichero.length() == 0) throw new Exception("El fichero de las sucursales se encuentra vacio.");
                 
@@ -171,7 +171,7 @@ public class SucursalesBancarias {
                 if (! existeCodigo) // Si el código no existe en el fichero lanzamos la exepción
                         throw new Exception("El código de la sucursal (" + codSucursal.toUpperCase() + ") que se desea eliminar no existe en el fichero.");
                 
-                TablasCursos.crearFichero(directory, "sucursalesActualizadas.txt"); //creamos un nuevo fichero
+                TablasCursos.crearFichero(DIRECTORY, "sucursalesActualizadas.txt"); //creamos un nuevo fichero
                 
                 ficheroNuevo = new RandomAccessFile(ficheroActualizado, "rw");
                 
@@ -192,8 +192,8 @@ public class SucursalesBancarias {
                 ficheroNuevo.close(); //Cerramos el fichero actualizado
                 fichero.close(); //Debemos cerrar el fichero antes de eliminarlo
                 
-                File ficheroOriginal = new File(directory + "sucursalesActualizadas.txt");
-                File destFichero = new File(sucBancFilePath);
+                File ficheroOriginal = new File(DIRECTORY + "sucursalesActualizadas.txt");
+                File destFichero = new File(SUCRBANCFILEPATH);
                 
                  if (destFichero.delete()) { //Borramos el fichero anterior
                      
@@ -213,7 +213,7 @@ public class SucursalesBancarias {
                         repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
 
                     } else {
-                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + sucBancFileName); 
+                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + SUCRBANCFILENAME); 
                     }
 
                 } else {
@@ -261,7 +261,7 @@ public class SucursalesBancarias {
         StringBuilder cursos = new StringBuilder();
         
         try {            
-            fr = new FileReader(sucBancFilePath);
+            fr = new FileReader(SUCRBANCFILEPATH);
             entrada = new BufferedReader(fr);
             cadena = entrada.readLine();
             while(cadena != null){
@@ -270,9 +270,9 @@ public class SucursalesBancarias {
                 cadena = entrada.readLine();
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Cursos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SucursalesBancarias.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Cursos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SucursalesBancarias.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (fr != null) {
@@ -282,13 +282,16 @@ public class SucursalesBancarias {
                     entrada.close();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SucursalesBancarias.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
         return cursos.toString();
     }
     
+    /**
+     * SUBMENU
+     */
     public static void subMenuSucursalesBancarias(){
         int opcion = 0;
         boolean continuar = true;

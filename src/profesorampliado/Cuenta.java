@@ -19,8 +19,8 @@ import java.util.TreeMap;
  */
 public class Cuenta {
     
-    public static final String EntBancariasFilePath = "Profesores\\EntidadesBancarias.txt";
-    public static final String SucurBancariasFilePath = "Profesores\\SucursalesBancarias.txt";
+    public static final String ENTBANCARIASFILEPATH = "Profesores\\EntidadesBancarias.txt";
+    public static final String SUCRBANCARIASFILEPATH = "Profesores\\SucursalesBancarias.txt";
     private double saldo;
 
     public Cuenta() {
@@ -204,10 +204,10 @@ public class Cuenta {
      * @param tmEEEE
      */
     static void cargaEntidadesBancarias(TreeMap<String, String> tmEEEE){
-        cargaDatos(EntBancariasFilePath, CentroEducativo.tmEEEE);
+        cargaDatos(ENTBANCARIASFILEPATH, CentroEducativo.tmEEEE);
     }
     static void cargaSucursalesBancarias(TreeMap<String, String> tmEEEESSSS){
-        cargaDatos(SucurBancariasFilePath, CentroEducativo.tmEEEESSSS);
+        cargaDatos(SUCRBANCARIASFILEPATH, CentroEducativo.tmEEEESSSS);
     }
     
     /**

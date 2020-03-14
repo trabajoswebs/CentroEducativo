@@ -20,6 +20,8 @@ public class Profesor extends Persona{
     private int[] horasExtras;
     private double tipoIRPF;
     private String cuentaIBAN;
+
+    
     private TreeMap<String, String> tmAsignaturas;//asignaturas que imparte
 
     public Profesor() {}
@@ -178,6 +180,20 @@ public class Profesor extends Persona{
             sb.append(key + ": " + asig);
         }
         return sb.toString();
+    }
+    
+    /**     
+     * @return 
+     */
+    public String getCuentaIBAN() {
+        return cuentaIBAN;
+    }
+    
+    /**     
+     * @param cuentaIBAN 
+     */
+    public void setCuentaIBAN(String cuentaIBAN) {
+        this.cuentaIBAN = cuentaIBAN;
     }
   
     /**

@@ -21,9 +21,9 @@ import java.util.logging.Logger;
  */
 public class Cursos {
     
-    public static final String directory = "Profesores\\";
-    public static final String cursoFileName = "cursos.txt";
-    public static final String filePath = directory + cursoFileName;
+    public static final String DIRECTORY = "Profesores\\";
+    public static final String CURSOFILENAME = "cursos.txt";
+    public static final String FILEPATH = DIRECTORY + CURSOFILENAME;
     
     static Scanner sc = new Scanner(System.in);
     
@@ -31,7 +31,7 @@ public class Cursos {
      * Elimina el código del curso en el fichero Profesores/cursos.txt
      */
     public static void bajaCurso(){
-        File ficheroActualizado = new File(directory + "cursosActualizados.txt");
+        File ficheroActualizado = new File(DIRECTORY + "cursosActualizados.txt");
         String codCurso, cadena, continuar;
         int indice;
         RandomAccessFile fichero = null;
@@ -51,7 +51,7 @@ public class Cursos {
                 if (codCurso.trim().isEmpty()) {
                     throw new Exception("El código del curso es erroneo.");
                 }
-                fichero = new RandomAccessFile(filePath, "r");
+                fichero = new RandomAccessFile(FILEPATH, "r");
                 
                 if(fichero.length() == 0) throw new Exception("El fichero de los cursos se encuentra vacio.");
                 
@@ -72,7 +72,7 @@ public class Cursos {
                 if (! existeCodigo) // Si el código no existe en el fichero lanzamos la exepción
                         throw new Exception("El código del curso (" + codCurso.toUpperCase() + ") que se desea eliminar no existe en el fichero.");
                 
-                TablasCursos.crearFichero(directory, "cursosActualizados.txt"); //creamos un nuevo fichero
+                TablasCursos.crearFichero(DIRECTORY, "cursosActualizados.txt"); //creamos un nuevo fichero
                 
                 ficheroNuevo = new RandomAccessFile(ficheroActualizado, "rw");
                 
@@ -93,8 +93,8 @@ public class Cursos {
                 ficheroNuevo.close(); //Cerramos el fichero actualizado
                 fichero.close(); //Debemos cerrar el fichero antes de eliminarlo
                 
-                File ficheroOriginal = new File(directory + "cursosActualizados.txt");
-                File destFichero = new File(filePath);
+                File ficheroOriginal = new File(DIRECTORY + "cursosActualizados.txt");
+                File destFichero = new File(FILEPATH);
                 
                  if (destFichero.delete()) { //Borramos el fichero anterior
                      
@@ -114,7 +114,7 @@ public class Cursos {
                         repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
 
                     } else {
-                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + cursoFileName); 
+                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + CURSOFILENAME); 
                     }
 
                 } else {
@@ -161,7 +161,7 @@ public class Cursos {
         BufferedReader entrada = null;
         StringBuilder cursos = new StringBuilder();
         try {            
-            fr = new FileReader(filePath);
+            fr = new FileReader(FILEPATH);
             entrada = new BufferedReader(fr);
             cadena = entrada.readLine();
             while(cadena != null){
@@ -211,8 +211,8 @@ public class Cursos {
                 if(codCurso.isEmpty()) throw new Exception("Debe introducir el código del curso.");
                 if(nombreCurso.isEmpty()) throw new Exception("Debe introducir el nombre del curso.");
                 
-                TablasCursos.crearFichero(directory, cursoFileName);
-                fichero = new RandomAccessFile(filePath, "rw");
+                TablasCursos.crearFichero(DIRECTORY, CURSOFILENAME);
+                fichero = new RandomAccessFile(FILEPATH, "rw");
                 cadena = fichero.readLine();
                 
                 while(cadena != null){
@@ -264,6 +264,48 @@ public class Cursos {
             }
         } while (repetir);
 
+    }
+    
+    /**
+     * SUBMENU
+     */
+    public static void subMenuCurso(){
+        int opcion = 0;
+        boolean continuar = true;
+        
+        do{             
+            System.out.println("\n*************** MANTENIMIENTO DE CURSOS ***************\n");
+            System.out.println("\t1. ALTA DE CURSOS");
+            System.out.println("\t2. BAJA DE CURSOS");
+            System.out.println("\t3. MOSTRAR CURSOS");            
+            System.out.println("\t0. SALIR CURSOS");            
+            System.out.print("\n\t   Opcion seleccionada: ");
+            
+            opcion = sc.nextInt();
+            
+            switch(opcion){
+                case 0: default:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    continuar = false;
+                    break;
+                case 1:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    System.out.println("\n1. ALTA DE CURSOS");
+                    altaCurso();
+                    break;
+                case 2:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    System.out.println("\n2. BAJA DE CURSOS");
+                    bajaCurso();
+                    break;
+                case 3:
+                    System.out.println("\n3. MOSTRAR CURSOS");
+                    System.out.println(imprimeCursos());                   
+                    break;
+            }
+            
+        }while(continuar);
+        
     }
     
 }

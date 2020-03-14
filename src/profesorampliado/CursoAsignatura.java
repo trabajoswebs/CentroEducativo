@@ -21,9 +21,9 @@ import java.util.logging.Logger;
  */
 public class CursoAsignatura {
     
-    public static final String directory = "Profesores\\";
-    public static final String curAsigFileName = "cursoAsignatura.txt";
-    public static final String curAsigFilePath = directory + curAsigFileName;
+    public static final String DIRECTORY = "Profesores\\";
+    public static final String CURASIGFILENAME = "cursoAsignatura.txt";
+    public static final String CURASIGFILEPATH = DIRECTORY + CURASIGFILENAME;
     
     static Scanner sc = new Scanner(System.in);
     
@@ -33,7 +33,7 @@ public class CursoAsignatura {
      */
     public static void bajaCursoAsignatura(){
         
-        File ficheroActualizado = new File(directory + "cursosActualizados.txt");
+        File ficheroActualizado = new File(DIRECTORY + "cursosActualizados.txt");
         String codCurso, cadena, continuar;
         int indice;
         RandomAccessFile fichero = null;
@@ -58,7 +58,7 @@ public class CursoAsignatura {
                     throw new Exception("La asignatura no existe.");
                 }
                 
-                fichero = new RandomAccessFile(curAsigFilePath, "r");
+                fichero = new RandomAccessFile(CURASIGFILEPATH, "r");
                 
                 if(fichero.length() == 0) throw new Exception("El fichero de las asignaturas se encuentra vacio.");
                 
@@ -79,7 +79,7 @@ public class CursoAsignatura {
                 if (! existeCodigo) // Si el código no existe en el fichero lanzamos la exepción
                         throw new Exception("El código del curso (" + codCurso.toUpperCase() + ") que se desea eliminar no existe en el fichero.");
                 
-                TablasCursos.crearFichero(directory, "cursosActualizados.txt"); //creamos un nuevo fichero
+                TablasCursos.crearFichero(DIRECTORY, "cursosActualizados.txt"); //creamos un nuevo fichero
                 
                 ficheroNuevo = new RandomAccessFile(ficheroActualizado, "rw");
                 
@@ -100,8 +100,8 @@ public class CursoAsignatura {
                 ficheroNuevo.close(); //Cerramos el fichero actualizado
                 fichero.close(); //Debemos cerrar el fichero antes de eliminarlo
                 
-                File ficheroOriginal = new File(directory + "cursosActualizados.txt");
-                File destFichero = new File(curAsigFilePath);
+                File ficheroOriginal = new File(DIRECTORY + "cursosActualizados.txt");
+                File destFichero = new File(CURASIGFILEPATH);
                 
                  if (destFichero.delete()) { //Borramos el fichero anterior
                      
@@ -121,7 +121,7 @@ public class CursoAsignatura {
                         repetir = (continuar.equalsIgnoreCase("S")); //Si se desea continuar añadiendo cursos
 
                     } else {
-                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + curAsigFileName); 
+                        throw new Exception("No se ha podido renombrar el archivo " + ficheroActualizado.getName() + " a " + CURASIGFILENAME); 
                     }
 
                 } else {
@@ -191,9 +191,9 @@ public class CursoAsignatura {
                     throw new Exception("Debe introducir el nombre de la asignatura.");
                 }
 
-                TablasCursos.crearFichero(directory, curAsigFileName); //Se crea el fichero si no existe
+                TablasCursos.crearFichero(DIRECTORY, CURASIGFILENAME); //Se crea el fichero si no existe
                 
-                fichero = new RandomAccessFile(curAsigFilePath, "rw");
+                fichero = new RandomAccessFile(CURASIGFILEPATH, "rw");
                 cadena = fichero.readLine();
                 
                 while(cadena != null){
@@ -239,7 +239,7 @@ public class CursoAsignatura {
                     try {
                         fichero.close();
                     } catch (IOException ex) {
-                        Logger.getLogger("Ha ocurrido una excepción: " +Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger("Ha ocurrido una excepción: " +CursoAsignatura.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -259,7 +259,7 @@ public class CursoAsignatura {
         BufferedReader entrada = null;
         StringBuilder cursos = new StringBuilder();
         try {            
-            fr = new FileReader(curAsigFilePath);
+            fr = new FileReader(CURASIGFILEPATH);
             entrada = new BufferedReader(fr);
             cadena = entrada.readLine();
             while(cadena != null){
@@ -268,9 +268,9 @@ public class CursoAsignatura {
                 cadena = entrada.readLine();
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Cursos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CursoAsignatura.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Cursos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CursoAsignatura.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (fr != null) {
@@ -280,10 +280,52 @@ public class CursoAsignatura {
                     entrada.close();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(Cursos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CursoAsignatura.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
         return cursos.toString();
+    }
+    
+    /**
+     * SUBMENU
+     */
+    public static void subMenuCursoAsignaturas(){
+        int opcion = 0;
+        boolean continuar = true;
+        
+        do{             
+            System.out.println("\n*************** MANTENIMIENTO DE ASIGNATURAS ***************\n");
+            System.out.println("\t1. ALTA DE ASIGNATURAS");
+            System.out.println("\t2. BAJA DE ASIGNATURAS");
+            System.out.println("\t3. MOSTRAR ASIGNATURAS");            
+            System.out.println("\t0. SALIR ASIGNATURAS");            
+            System.out.print("\n\t   Opcion seleccionada: ");
+            
+            opcion = sc.nextInt();
+            
+            switch(opcion){
+                case 0: default:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    continuar = false;
+                    break;
+                case 1:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    System.out.println("\n1. ALTA DE ASIGNATURAS");
+                    altaCursoAsignatura();
+                    break;
+                case 2:
+                    sc.nextLine(); //Limpiamos el Buffer
+                    System.out.println("\n2. BAJA DE ASIGNATURAS");
+                    bajaCursoAsignatura();
+                    break;
+                case 3:
+                    System.out.println("\n3. MOSTRAR ASIGNATURAS");
+                    System.out.println(imprimeCursosAsignaturas());                   
+                    break;
+            }
+            
+        }while(continuar);
+        
     }
 }
