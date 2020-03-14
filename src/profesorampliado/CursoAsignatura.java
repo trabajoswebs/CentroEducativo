@@ -209,11 +209,13 @@ public class CursoAsignatura {
                 cadena = codCursoAsignatura.toUpperCase() + "," + nombreAsignatura + "\n";
                 fichero.writeBytes(cadena);
                 
-                if (CentroEducativo.getTmCCASIGNA().containsKey(codCursoAsignatura)) { //Actualizamos el TreeMap
+                //ACTUALIZAMOS EL TREEMAP
+                if (! CentroEducativo.getTmCCASIGNA().containsKey(codCursoAsignatura)) { //Actualizamos el TreeMap
                     CentroEducativo.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos la asignatura al treemap
                 } else {
                     CentroEducativo.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
                     TablasCursos.cargaCursos(CentroEducativo.getTmCCASIGNA()); //volcamos los datos del fichero al TreeMap y lo actualizamos
+                    CentroEducativo.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos la asignatura al treemap
                 }
                 System.out.println("Se ha añadido correctamente la asignatura en el fichero.");
                 System.out.println("Si desea añadir más asignaturas al fichero introduzca la letra: \"S\"");

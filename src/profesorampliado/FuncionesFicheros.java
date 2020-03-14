@@ -50,7 +50,9 @@ public class FuncionesFicheros {
                     tipo = (per instanceof Alumno) ? 'A' : 'P'; //Conoce el tipo de objeto Alumno o Profesor
                     
                     switch(tipo){ // Cambia el tipo de objeto Alumno - Profesor
+                        
                         case 'A': //Objeto Alumno
+                            
                             Alumno alumno = (Alumno) per;//Cast al objeto Alumno
                             cadena.append(Character.toString(tipo) + separador);
                             cadena.append(alumno.getNombre() + separador);
@@ -72,8 +74,7 @@ public class FuncionesFicheros {
                                 }
                             });
                             
-                            cadena.append("\n"); //Salto de linea al final de la cadena
-                            salida.println(cadena.toString());
+                            cadena.append("\n"); //Salto de linea al final de la cadena                            
                             break;
                         case 'P': //Objeto Profesor
                             Profesor profesor = (Profesor) per;//Cast al objeto Profesor
@@ -92,27 +93,30 @@ public class FuncionesFicheros {
                                 cadena.append( horas + separador);
                             }
                             cadena.append(Double.toString(profesor.getTipoIRPF()) + separador);
-                            cadena.append(profesor.getCuentaIBAN() + separador);                            
-                            it = profesor.getTmAsignaturas().keySet().iterator();
+                            cadena.append(profesor.getCuentaIBAN() + separador);
                             
-                            while(it.hasNext()){
-                                String codCurso = (String) it.next();
+                            Iterator tm = profesor.getTmAsignaturas().keySet().iterator();
+                            
+                            while(tm.hasNext()){
+                                String codCurso = (String) tm.next();
                                 String nomCurso = profesor.getTmAsignaturas().get(codCurso);
                                 cadena.append(codCurso + separador);
                                 cadena.append(nomCurso + separador);
                             }
                             cadena.append("\n"); //Salto de linea al final de la cadena
-                            salida.println(cadena.toString());
                         break;
                     }
                     
-                }  
+                }
+                salida.println(cadena.toString());
                 salida.flush();
             }
         } catch(FileNotFoundException fnf){
             fnf.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Ha ocurrido un error con el fichero: " + e.getMessage());
+        } catch (IOException ioe) {
+            System.out.println("Ha ocurrido un error con el fichero: " + ioe.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error : " + e.getMessage());        
         } finally {
             if (salida != null) {
                 salida.close();

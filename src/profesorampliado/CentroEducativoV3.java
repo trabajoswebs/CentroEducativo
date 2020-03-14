@@ -34,6 +34,7 @@ public class CentroEducativoV3 {
     public static void main(String[] args) {
         
             //Se carga TreeMap y las variables globales
+            TablasCursos.cargaGlobales();
             Cuenta.cargaEntidadesBancarias(tmEEEE);
             Cuenta.cargaSucursalesBancarias(tmEEEESSSS);
             TablasCursos.cargaCursos(tmCC);
@@ -99,16 +100,7 @@ public class CentroEducativoV3 {
                         break;
                     case 0:
                     default:
-                        try {
-                        /*
-                            Iterator it = lista.keySet().iterator();
-
-                            while (it.hasNext()) {
-                                String key = (String) it.next();
-                                Persona per = (Persona) lista.get(key);
-                                System.out.println(per.getNombre() + " " + per.getApellidos());
-                            }
-                            */
+                        try {   
                             FuncionesFicheros.almacenarColPersonasEnArchivo(lista, fPersonas);
                         } catch (IOException e) {
                             System.out.println("Error: -> " + e.getMessage());
@@ -575,7 +567,7 @@ public class CentroEducativoV3 {
      * @param s
      */
     public static void imprimirListados(String text, boolean p, boolean s) {
-        System.out.printf(text, curso);
+        System.out.printf(text, CentroEducativo.getCurso());
 
         String t = (p && !s) ? "(P) " : "";
 

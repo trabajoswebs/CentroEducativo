@@ -164,7 +164,7 @@ public class Alumno extends Persona{
                         cadena.append(CentroEducativo.tmCCASIGNA.get(key));
                         cadena.append(" (");
                         cadena.append(key);
-                        cadena.append(") tiene una calificación en la " + eval[evaluacion] + " de: ");
+                        cadena.append(") tiene una calificación en la " + eval[evaluacion - 1] + " de: ");
                         cadena.append(calificacion);
                         cadena.append(" puntos.");
                     }
