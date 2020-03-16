@@ -100,11 +100,11 @@ public class Cursos {
                      
                         if (ficheroOriginal.renameTo(destFichero)) {//Renombramos el fichero
                             
-                            if (CentroEducativo.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
-                                CentroEducativo.getTmCC().remove(codCurso); // Eliminamos el curso del treemap
+                            if (CentroEducativoV3.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
+                                CentroEducativoV3.getTmCC().remove(codCurso); // Eliminamos el curso del treemap
                             }else{
-                                CentroEducativo.getTmCC().clear();//Eliminamos todos los datos del TreeMap
-                                TablasCursos.cargaCursos(CentroEducativo.getTmCC()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
+                                CentroEducativoV3.getTmCC().clear();//Eliminamos todos los datos del TreeMap
+                                TablasCursos.cargaCursos(CentroEducativoV3.getTmCC()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
                             }
 
                         System.out.println("Se ha eliminado correctamente el curso  " + codCurso + " del fichero.");
@@ -228,11 +228,11 @@ public class Cursos {
                 cadena = codCurso.toUpperCase() + "," + nombreCurso + "\n";
                 fichero.writeBytes(cadena);
                 
-                if (CentroEducativo.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
-                    CentroEducativo.getTmCC().put(codCurso, "," + nombreCurso + "\n"); // añadimos el curso del treemap
+                if (CentroEducativoV3.getTmCC().containsKey(codCurso)) { //Actualizamos el TreeMap
+                    CentroEducativoV3.getTmCC().put(codCurso, "," + nombreCurso + "\n"); // añadimos el curso del treemap
                 } else {
-                    CentroEducativo.getTmCC().clear();//Eliminamos todos los datos del TreeMap
-                    TablasCursos.cargaCursos(CentroEducativo.getTmCC()); //volcamos los datos del fichero al TreeMap y lo actualizamos
+                    CentroEducativoV3.getTmCC().clear();//Eliminamos todos los datos del TreeMap
+                    TablasCursos.cargaCursos(CentroEducativoV3.getTmCC()); //volcamos los datos del fichero al TreeMap y lo actualizamos
                 }
                 System.out.println("Se ha añadido correctamente el curso en el fichero.");
                 System.out.println("Si desea añadir más cursos al fichero introduzca la letra: \"S\"");

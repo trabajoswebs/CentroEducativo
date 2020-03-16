@@ -12,8 +12,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,13 +19,69 @@ import java.util.logging.Logger;
  */
 public class CentroEducativoV3 {
 
-    private static String curso;
-    private static double pagoPorHoraExtra;
+    public static String curso;
+    public static double pagoPorHoraExtra;
     static TreeMap<String, Persona> lista = new TreeMap<String, Persona>();
     static TreeMap<String, String> tmEEEE = new TreeMap<String, String>();//Map con entidades bancarias
     static TreeMap<String, String> tmEEEESSSS = new TreeMap<String, String>();//Map con sucursales bancarias
     static TreeMap<String, String> tmCC = new TreeMap<String, String>();//Map con nombres de cursos
     static TreeMap<String, String> tmCCASIGNA = new TreeMap<String, String>();//Map con curso+asignatura
+
+    public static void setCurso(String curso) {
+        curso = curso;
+    }
+
+    public static void setPagoPorHoraExtra(double pagoPorHoraExtra) {
+        pagoPorHoraExtra = pagoPorHoraExtra;
+    }
+
+    public static void setLista(TreeMap<String, Persona> lista) {
+        lista = lista;
+    }
+
+    public static void setTmEEEE(TreeMap<String, String> tmEEEE) {
+        tmEEEE = tmEEEE;
+    }
+
+    public static void setTmEEEESSSS(TreeMap<String, String> tmEEEESSSS) {
+        tmEEEESSSS = tmEEEESSSS;
+    }
+
+    public static void setTmCC(TreeMap<String, String> tmCC) {
+        tmCC = tmCC;
+    }
+
+    public static void setTmCCASIGNA(TreeMap<String, String> tmCCASIGNA) {
+        tmCCASIGNA = tmCCASIGNA;
+    }
+
+    public static String getCurso() {
+        return curso;
+    }
+
+    public static double getPagoPorHoraExtra() {
+        return pagoPorHoraExtra;
+    }
+
+    public static TreeMap<String, Persona> getLista() {
+        return lista;
+    }
+
+    public static TreeMap<String, String> getTmEEEE() {
+        return tmEEEE;
+    }
+
+    public static TreeMap<String, String> getTmEEEESSSS() {
+        return tmEEEESSSS;
+    }
+
+    public static TreeMap<String, String> getTmCC() {
+        return tmCC;
+    }
+
+    public static TreeMap<String, String> getTmCCASIGNA() {
+        return tmCCASIGNA;
+    }
 
     static Scanner sc = new Scanner(System.in);
 
@@ -426,7 +480,7 @@ public class CentroEducativoV3 {
                                 try {
                                     while (itAsignatura.hasNext()) {
                                         String keyAsig = (String) itAsignatura.next();
-                                        System.out.println("Nota de la asignatura: " + CentroEducativo.tmCCASIGNA.get(keyAsig) + "(" + keyAsig + "): ");
+                                        System.out.println("Nota de la asignatura: " + tmCCASIGNA.get(keyAsig) + "(" + keyAsig + "): ");
                                         Notas notas = new Notas();
                                         int[] nota = new int[5];
 
@@ -457,7 +511,7 @@ public class CentroEducativoV3 {
                             try {
                                 System.out.println("Indique el código de un curso: ");
                                 String curso = sc.nextLine();
-                                if (CentroEducativo.tmCC.containsKey(curso)) {
+                                if (tmCC.containsKey(curso)) {
                                     it = lista.keySet().iterator();
                                     while (it.hasNext()) {
                                         key = (String) it.next();
@@ -487,7 +541,7 @@ public class CentroEducativoV3 {
                             try {
                                 System.out.println("Indique una Asignatura: ");
                                 String asig = sc.nextLine();
-                                if (CentroEducativo.tmCCASIGNA.containsKey(asig)) {
+                                if (tmCCASIGNA.containsKey(asig)) {
                                     it = lista.keySet().iterator();
                                     while (it.hasNext()) {
                                         key = (String) it.next();
@@ -567,7 +621,7 @@ public class CentroEducativoV3 {
      * @param s
      */
     public static void imprimirListados(String text, boolean p, boolean s) {
-        System.out.printf(text, CentroEducativo.getCurso());
+        System.out.printf(text, getCurso());
 
         String t = (p && !s) ? "(P) " : "";
 

@@ -42,7 +42,7 @@ public class Alumno extends Persona{
             try {
                 System.out.println("Introducir el curso: ");
                 curso = sc.nextLine();
-                if (CentroEducativo.tmCC.containsKey(curso)) {
+                if (CentroEducativoV3.tmCC.containsKey(curso)) {
                     this.curso = curso;
                     correcto = true;
                 } else {
@@ -56,7 +56,7 @@ public class Alumno extends Persona{
                         System.out.println("Introducir la asignatura: ");
                         asignatura = sc.nextLine();
 
-                        if (CentroEducativo.tmCCASIGNA.containsKey(asignatura)) {
+                        if (CentroEducativoV3.tmCCASIGNA.containsKey(asignatura)) {
 
                           if (this.tmAsignaturasAlumno.containsKey(asignatura)) // Comprueba si la asignatura ya ha estado grabada en la lista del alumno
                             throw new Exception("La asignatura ya se encuentra en la lista.");
@@ -141,7 +141,7 @@ public class Alumno extends Persona{
         String[] eval = {"Primera Evaluación", "Segunda Evaluación", "Tercera Evaluación", "Evaluación Ordinaria", "Evaluación Extraordinaria"};
         StringBuilder cadena = new StringBuilder();
 
-        if (CentroEducativo.tmCC.containsKey(curso)) { //Se comprueba que el codigo del curse este en la lista de codigos
+        if (CentroEducativoV3.tmCC.containsKey(curso)) { //Se comprueba que el codigo del curse este en la lista de codigos
             if (evaluacion >= 1 && evaluacion <= 5) {  //Se comprueba que la evaluacion de las notas se comprendan entre 0 y 5
 
                 if (this.tmAsignaturasAlumno.firstKey().substring(0, 2).equals(curso)) {
@@ -161,7 +161,7 @@ public class Alumno extends Persona{
                         notas = this.tmAsignaturasAlumno.get(key);
                         calificacion = notas.getNotas()[evaluacion - 1];
                         cadena.append("\nLa asignatura ");
-                        cadena.append(CentroEducativo.tmCCASIGNA.get(key));
+                        cadena.append(CentroEducativoV3.tmCCASIGNA.get(key));
                         cadena.append(" (");
                         cadena.append(key);
                         cadena.append(") tiene una calificación en la " + eval[evaluacion - 1] + " de: ");

@@ -136,11 +136,12 @@ public class Profesor extends Persona{
                     sc.nextLine();
                     System.out.println("Indique el código de la asignatura: ");
                     key = sc.nextLine();
-                    if (CentroEducativo.tmCCASIGNA.containsKey(key)) {
-                        String nombre = CentroEducativo.tmCCASIGNA.get(key);
+                    if (CentroEducativoV3.tmCCASIGNA.containsKey(key)) {
+                        String nombre = CentroEducativoV3.tmCCASIGNA.get(key);
                         System.out.println(key + ": " + nombre);
                         this.tmAsignaturas.put(key, nombre);
                     }
+                    System.out.println("Asignatura añadida.");
                     break;
                 case 2:
                     System.out.println("");
@@ -150,6 +151,7 @@ public class Profesor extends Persona{
                     if (this.tmAsignaturas.containsKey(key)) {
                         this.tmAsignaturas.remove(key);
                     }
+                    System.out.println("Asignatura eliminada.");
                     break;
             }
 
@@ -162,9 +164,9 @@ public class Profesor extends Persona{
         sb.append("\nCuenta IBAN: ");
         sb.append(this.cuentaIBAN);
         String EEEE = cuentaIBAN.substring(0,4);
-        String banco = CentroEducativo.tmEEEE.get(EEEE);
+        String banco = CentroEducativoV3.tmEEEE.get(EEEE);
         String EEEESSSS = cuentaIBAN.substring(4,12);
-        String sucursal = CentroEducativo.tmEEEESSSS.get(EEEESSSS);
+        String sucursal = CentroEducativoV3.tmEEEESSSS.get(EEEESSSS);
         System.out.println("\nBanco " + banco + " Sucursal " + sucursal);
         sb.append("\nSueldo Base: ");
         sb.append(this.sueldoBase);
@@ -245,7 +247,7 @@ public class Profesor extends Persona{
 
     //Calculo del importe de las horas extras por mes    
     private double calcularImporteHorasExtras(int mes) {
-        return this.horasExtras[mes] * CentroEducativo.getPagoPorHoraExtra();
+        return this.horasExtras[mes] * CentroEducativoV3.getPagoPorHoraExtra();
     }
 
     //Método para calcular el sueldo bruto de un mes (sueldo base +
@@ -288,7 +290,7 @@ public class Profesor extends Persona{
         sb.append(this.getDni());
         sb.append(this.toString());
         sb.append("\nCurso: ");
-        sb.append(CentroEducativo.getCurso());
+        sb.append(CentroEducativoV3.getCurso());
         sb.append("\nNomina mes: ");
         sb.append(conocerMes(mes));
         sb.append("\nSueldo base: ");

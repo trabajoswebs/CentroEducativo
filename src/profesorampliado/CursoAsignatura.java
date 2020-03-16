@@ -54,7 +54,7 @@ public class CursoAsignatura {
                     throw new Exception("Debe introducir un código de asignatura válido.");
                 }
                 
-                if (! CentroEducativo.getTmCCASIGNA().containsKey(codCurso)) { //Comprobamos la existencia del código de la asignatura
+                if (! CentroEducativoV3.getTmCCASIGNA().containsKey(codCurso)) { //Comprobamos la existencia del código de la asignatura
                     throw new Exception("La asignatura no existe.");
                 }
                 
@@ -107,11 +107,11 @@ public class CursoAsignatura {
                      
                         if (ficheroOriginal.renameTo(destFichero)) {//Renombramos el fichero
                             
-                            if (CentroEducativo.getTmCCASIGNA().containsKey(codCurso)) { //Actualizamos el TreeMap
-                                CentroEducativo.getTmCCASIGNA().remove(codCurso); // Eliminamos la asignatura del treemap
+                            if (CentroEducativoV3.getTmCCASIGNA().containsKey(codCurso)) { //Actualizamos el TreeMap
+                                CentroEducativoV3.getTmCCASIGNA().remove(codCurso); // Eliminamos la asignatura del treemap
                             }else{
-                                CentroEducativo.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
-                                TablasCursos.cargaCursos(CentroEducativo.getTmCCASIGNA()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
+                                CentroEducativoV3.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
+                                TablasCursos.cargaCursos(CentroEducativoV3.getTmCCASIGNA()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
                             }
 
                         System.out.println("Se ha eliminado correctamente la asignatura  " + codCurso + " del fichero.");
@@ -180,7 +180,7 @@ public class CursoAsignatura {
                 }
                 codCurso = codCursoAsignatura.substring(0, 2).toUpperCase(); // Obtenemos el código del curso
                 
-                if (! CentroEducativo.getTmCC().containsKey(codCurso)) { //Comprobamos la existencia del código del curso
+                if (! CentroEducativoV3.getTmCC().containsKey(codCurso)) { //Comprobamos la existencia del código del curso
                     throw new Exception("El curso no existe.");
                 }
                 
@@ -210,12 +210,12 @@ public class CursoAsignatura {
                 fichero.writeBytes(cadena);
                 
                 //ACTUALIZAMOS EL TREEMAP
-                if (! CentroEducativo.getTmCCASIGNA().containsKey(codCursoAsignatura)) { //Actualizamos el TreeMap
-                    CentroEducativo.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos la asignatura al treemap
+                if (! CentroEducativoV3.getTmCCASIGNA().containsKey(codCursoAsignatura)) { //Actualizamos el TreeMap
+                    CentroEducativoV3.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos la asignatura al treemap
                 } else {
-                    CentroEducativo.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
-                    TablasCursos.cargaCursos(CentroEducativo.getTmCCASIGNA()); //volcamos los datos del fichero al TreeMap y lo actualizamos
-                    CentroEducativo.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos la asignatura al treemap
+                    CentroEducativoV3.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
+                    TablasCursos.cargaCursos(CentroEducativoV3.getTmCCASIGNA()); //volcamos los datos del fichero al TreeMap y lo actualizamos
+                    CentroEducativoV3.getTmCCASIGNA().put(codCursoAsignatura, "," + nombreAsignatura + "\n"); // añadimos la asignatura al treemap
                 }
                 System.out.println("Se ha añadido correctamente la asignatura en el fichero.");
                 System.out.println("Si desea añadir más asignaturas al fichero introduzca la letra: \"S\"");
