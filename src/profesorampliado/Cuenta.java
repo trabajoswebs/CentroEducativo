@@ -204,10 +204,10 @@ public class Cuenta {
      * @param tmEEEE
      */
     static void cargaEntidadesBancarias(TreeMap<String, String> tmEEEE){
-        cargaDatos(ENTBANCARIASFILEPATH, CentroEducativoV3.tmEEEE);
+        cargaDatos(ENTBANCARIASFILEPATH, CentroEducativoV4.tmEEEE);
     }
     static void cargaSucursalesBancarias(TreeMap<String, String> tmEEEESSSS){
-        cargaDatos(SUCRBANCARIASFILEPATH, CentroEducativoV3.tmEEEESSSS);
+        cargaDatos(SUCRBANCARIASFILEPATH, CentroEducativoV4.tmEEEESSSS);
     }
     
     /**

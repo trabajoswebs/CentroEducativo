@@ -5,6 +5,7 @@
  */
 package profesorampliado;
 
+import java.io.Serializable;
 import static java.lang.Integer.parseInt;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ import java.util.Scanner;
  *
  * @author Acer
  */
-public class Persona {
+public class Persona implements Serializable{
 
     public String getNombre() {
         return nombre;
@@ -72,6 +73,16 @@ public class Persona {
     
     public Persona(){}
 
+    /**
+     * 
+     * @param nombre
+     * @param apellidos
+     * @param calle
+     * @param codigoPostal
+     * @param ciudad
+     * @param dni
+     * @param fechaNacimiento 
+     */
     public Persona(String nombre, String apellidos, String calle, String codigoPostal, String ciudad, String dni, String fechaNacimiento) {
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -90,7 +101,9 @@ public class Persona {
     private String dni;
     private String fechaNacimiento;//DD/MM/AAAA
     
-    
+    /**
+     * 
+     */
     public void pideDatos(){
         Scanner sc = new Scanner(System.in);
         boolean correcto = true;
@@ -123,7 +136,11 @@ public class Persona {
 
     }
     
-    
+    /**
+     * 
+     * @param dni
+     * @throws Exception 
+     */
     public static void validarDni(String dni) throws Exception {
         char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
         String numeros = dni.substring(0, dni.length() - 1);

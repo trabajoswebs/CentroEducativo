@@ -136,8 +136,8 @@ public class Profesor extends Persona{
                     sc.nextLine();
                     System.out.println("Indique el código de la asignatura: ");
                     key = sc.nextLine();
-                    if (CentroEducativoV3.tmCCASIGNA.containsKey(key)) {
-                        String nombre = CentroEducativoV3.tmCCASIGNA.get(key);
+                    if (CentroEducativoV4.tmCCASIGNA.containsKey(key)) {
+                        String nombre = CentroEducativoV4.tmCCASIGNA.get(key);
                         System.out.println(key + ": " + nombre);
                         this.tmAsignaturas.put(key, nombre);
                     }
@@ -164,9 +164,9 @@ public class Profesor extends Persona{
         sb.append("\nCuenta IBAN: ");
         sb.append(this.cuentaIBAN);
         String EEEE = cuentaIBAN.substring(0,4);
-        String banco = CentroEducativoV3.tmEEEE.get(EEEE);
+        String banco = CentroEducativoV4.tmEEEE.get(EEEE);
         String EEEESSSS = cuentaIBAN.substring(4,12);
-        String sucursal = CentroEducativoV3.tmEEEESSSS.get(EEEESSSS);
+        String sucursal = CentroEducativoV4.tmEEEESSSS.get(EEEESSSS);
         System.out.println("\nBanco " + banco + " Sucursal " + sucursal);
         sb.append("\nSueldo Base: ");
         sb.append(this.sueldoBase);
@@ -247,7 +247,7 @@ public class Profesor extends Persona{
 
     //Calculo del importe de las horas extras por mes    
     private double calcularImporteHorasExtras(int mes) {
-        return this.horasExtras[mes] * CentroEducativoV3.getPagoPorHoraExtra();
+        return this.horasExtras[mes] * CentroEducativoV4.getPagoPorHoraExtra();
     }
 
     //Método para calcular el sueldo bruto de un mes (sueldo base +
@@ -290,7 +290,7 @@ public class Profesor extends Persona{
         sb.append(this.getDni());
         sb.append(this.toString());
         sb.append("\nCurso: ");
-        sb.append(CentroEducativoV3.getCurso());
+        sb.append(CentroEducativoV4.getCurso());
         sb.append("\nNomina mes: ");
         sb.append(conocerMes(mes));
         sb.append("\nSueldo base: ");
@@ -311,6 +311,16 @@ public class Profesor extends Persona{
     private String conocerMes(int mes) {
         String[] meses = {"Enero", "Febrero", "marzo", "Abril", "mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
         return meses[mes - 1];
+    }
+    
+    /**
+     * Dos profesores son iguales si tienen el mismo nombre y apellidos
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.getApellidos().equals(((Profesor) obj).getApellidos())
+                && this.getNombre().equals(((Profesor) obj).getNombre()));
     }
 
 }

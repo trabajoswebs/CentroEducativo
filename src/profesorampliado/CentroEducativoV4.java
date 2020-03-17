@@ -7,6 +7,7 @@ package profesorampliado;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,11 +18,11 @@ import java.util.TreeMap;
  *
  * @author Acer
  */
-public class CentroEducativoV3 {
+public class CentroEducativoV4 {
 
     public static String curso;
     public static double pagoPorHoraExtra;
-    static TreeMap<String, Persona> lista = new TreeMap<String, Persona>();
+    static ArrayList<Persona> lista = new ArrayList<Persona>(); 
     static TreeMap<String, String> tmEEEE = new TreeMap<String, String>();//Map con entidades bancarias
     static TreeMap<String, String> tmEEEESSSS = new TreeMap<String, String>();//Map con sucursales bancarias
     static TreeMap<String, String> tmCC = new TreeMap<String, String>();//Map con nombres de cursos
@@ -63,7 +64,7 @@ public class CentroEducativoV3 {
         return pagoPorHoraExtra;
     }
 
-    public static TreeMap<String, Persona> getLista() {
+    public static ArrayList<Persona> getLista() {
         return lista;
     }
 
@@ -96,7 +97,7 @@ public class CentroEducativoV3 {
 
             // CREAMOS UN FICHERO PARA GUARDAR LOS PROFESORES
             File ruta = new File("Profesores\\");//crea un objeto con una ruta
-            File fPersonas = new File(ruta, "Personas3.txt");//crea un objeto fichero en la ruta
+            File fPersonas = new File(ruta, "Personas3.dat");//crea un objeto fichero en la ruta
 
             
             try {
@@ -201,12 +202,12 @@ public class CentroEducativoV3 {
                         try {
                             profe = new Profesor();
                             profe.nuevoProfesor();
-                            key = profe.getApellidos() + ", " + profe.getNombre();
-                            System.out.println(key);
-                            if (lista.containsKey(key)) {
-                                throw new Exception("Este nombre ya existe. No puedo grabarlo");
+                            
+                            if(! lista.equals(profe)){//Comprueba que dos profesores no sean iguales
+                                lista.add(profe);                                
+                            }else{
+                                throw new Exception("El nombre del profesor ya existe");
                             }
-                            lista.put(key, profe);
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
@@ -220,8 +221,8 @@ public class CentroEducativoV3 {
                                 String n = sc.nextLine();
                                 System.out.println("indique el apellido del profesor:");
                                 String a = sc.nextLine();
-                                key = a + ", " + n;
-                                if (lista.containsKey(key) == false) {
+                                
+                                if(lista.equals(a)){
                                     throw new Exception("El nombre que desea eliminar no existe");
                                 }
                                 lista.remove(key);

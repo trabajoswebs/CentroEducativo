@@ -50,7 +50,7 @@ public class SucursalesBancarias {
                 }
                 codEntidadBancaria = codSucurBancaria.substring(0, 4); // Obtenemos el código de la Entidad Bancaria
                 
-                if (! CentroEducativoV3.getTmEEEE().containsKey(codEntidadBancaria)) { //Comprobamos la existencia del código de la entidad bancaria
+                if (! CentroEducativoV4.getTmEEEE().containsKey(codEntidadBancaria)) { //Comprobamos la existencia del código de la entidad bancaria
                     throw new Exception("La Entidad Bancaria no existe.");
                 }
                 
@@ -80,11 +80,11 @@ public class SucursalesBancarias {
                 cadena = codSucurBancaria.toUpperCase() + "," + nombreSucursalBancaria + "\n";
                 fichero.writeBytes(cadena);
                 
-                if (CentroEducativoV3.getTmEEEESSSS().containsKey(codSucurBancaria)) { //Actualizamos el TreeMap
-                    CentroEducativoV3.getTmEEEESSSS().put(codSucurBancaria, "," + nombreSucursalBancaria + "\n"); // añadimos el la sucursal bancaria del treemap
+                if (CentroEducativoV4.getTmEEEESSSS().containsKey(codSucurBancaria)) { //Actualizamos el TreeMap
+                    CentroEducativoV4.getTmEEEESSSS().put(codSucurBancaria, "," + nombreSucursalBancaria + "\n"); // añadimos el la sucursal bancaria del treemap
                 } else {
-                    CentroEducativoV3.getTmEEEESSSS().clear();//Eliminamos todos los datos del TreeMap
-                    Cuenta.cargaSucursalesBancarias(CentroEducativoV3.getTmEEEESSSS()); //volcamos los datos del fichero al TreeMap y lo actualizamos
+                    CentroEducativoV4.getTmEEEESSSS().clear();//Eliminamos todos los datos del TreeMap
+                    Cuenta.cargaSucursalesBancarias(CentroEducativoV4.getTmEEEESSSS()); //volcamos los datos del fichero al TreeMap y lo actualizamos
                 }
                 System.out.println("Se ha añadido correctamente la Sucursal Bancaria en el fichero.");
                 System.out.println("Si desea añadir más Sucursales Bancarias al fichero introduzca la letra: \"S\"");
@@ -146,7 +146,7 @@ public class SucursalesBancarias {
                     throw new Exception("Debe introducir un código de asignatura válido.");
                 }
                 
-                if (! CentroEducativoV3.getTmEEEESSSS().containsKey(codSucursal)) { //Comprobamos la existencia del código de la sucursal bancaria
+                if (! CentroEducativoV4.getTmEEEESSSS().containsKey(codSucursal)) { //Comprobamos la existencia del código de la sucursal bancaria
                     throw new Exception("La sucursal no existe.");
                 }
                 
@@ -199,11 +199,11 @@ public class SucursalesBancarias {
                      
                         if (ficheroOriginal.renameTo(destFichero)) {//Renombramos el fichero
                             
-                            if (CentroEducativoV3.getTmEEEESSSS().containsKey(codSucursal)) { //Actualizamos el TreeMap
-                                CentroEducativoV3.getTmEEEESSSS().remove(codSucursal); // Eliminamos la sucursal bancaria del treemap
+                            if (CentroEducativoV4.getTmEEEESSSS().containsKey(codSucursal)) { //Actualizamos el TreeMap
+                                CentroEducativoV4.getTmEEEESSSS().remove(codSucursal); // Eliminamos la sucursal bancaria del treemap
                             }else{
-                                CentroEducativoV3.getTmEEEESSSS().clear();//Eliminamos todos los datos del TreeMap
-                                Cuenta.cargaSucursalesBancarias(CentroEducativoV3.getTmEEEESSSS()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
+                                CentroEducativoV4.getTmEEEESSSS().clear();//Eliminamos todos los datos del TreeMap
+                                Cuenta.cargaSucursalesBancarias(CentroEducativoV4.getTmEEEESSSS()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
                             }
 
                         System.out.println("Se ha eliminado correctamente la sucursal bancaria  " + codSucursal + " del fichero.");

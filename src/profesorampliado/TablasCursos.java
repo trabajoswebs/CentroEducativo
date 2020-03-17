@@ -27,12 +27,12 @@ public class TablasCursos {
     
     
     static void cargaCursos(TreeMap<String, String> tmCC){
-        cargaDatos(Cursos.FILEPATH, CentroEducativoV3.tmCC);
+        cargaDatos(Cursos.FILEPATH, CentroEducativoV4.tmCC);
     }
     
     
     static void cargaCursosAsignaturas(TreeMap<String, String> tmCCASIGNA){
-        cargaDatos(CAFILEPATH, CentroEducativoV3.tmCCASIGNA);
+        cargaDatos(CAFILEPATH, CentroEducativoV4.tmCCASIGNA);
     }
     
     /**
@@ -120,9 +120,9 @@ public class TablasCursos {
                         
                         cadena = curso + "#" + importeHorasExtras + "\n";
                         fichero.writeBytes(cadena);
-                        CentroEducativoV3.setCurso(curso); //Establecemos el curso en la variable global
+                        CentroEducativoV4.setCurso(curso); //Establecemos el curso en la variable global
                         double importe = Double.parseDouble(importeHorasExtras); // Convertimos el String en double
-                        CentroEducativoV3.setPagoPorHoraExtra(importe); //Establecemos el importe de las horas extras en la variable global
+                        CentroEducativoV4.setPagoPorHoraExtra(importe); //Establecemos el importe de las horas extras en la variable global
                         System.out.println("Los datos se han registrado correctamente. ");
                         correcto = true;
                         System.out.println();
@@ -144,9 +144,9 @@ public class TablasCursos {
                 
                 if (cadena.length() > 0) { //Se comprueba que existe datos en la cadena
                     int indice = cadena.indexOf("#"); //Se obtiene el indice de la almohadilla "#" que divide las dos variables Curso e importeHorasExtra
-                    CentroEducativoV3.setCurso(cadena.substring(0, indice)); //Obtenemos la cadena del curso y establecemos la variable global 
+                    CentroEducativoV4.setCurso(cadena.substring(0, indice)); //Obtenemos la cadena del curso y establecemos la variable global 
                     Double iHorasExtras = Double.parseDouble(cadena.substring(indice + 1, cadena.length())); //Obtenemos la cadena del importe de horas extras y lo convertimos en double
-                    CentroEducativoV3.setPagoPorHoraExtra(iHorasExtras);
+                    CentroEducativoV4.setPagoPorHoraExtra(iHorasExtras);
                 }
             }
 
