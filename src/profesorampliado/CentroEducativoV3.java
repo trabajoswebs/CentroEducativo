@@ -304,7 +304,6 @@ public class CentroEducativoV3 {
                         Iterator it = lista.keySet().iterator();
 
                         while (it.hasNext()) {
-                            System.out.println(it.next());
                             key = (String) it.next();
                             per = lista.get(key);
                             if (per instanceof Profesor) {
@@ -361,21 +360,30 @@ public class CentroEducativoV3 {
                         correcto = false;
 
                         do {
-                            System.out.println("Opción seleccionada: Mantenimiento de asignaturas impartidas por cada profesor: ");
-                            sc.nextLine();
-                            System.out.println("Nombre del profesor: ");
-                            String n = sc.nextLine();
-                            System.out.println("Apellidos del Profesor: ");
-                            String a = sc.nextLine();
-                            key = a.toLowerCase() + ", " + n.toLowerCase();
-                            per = lista.get(key);
-                            if (per instanceof Persona) {
-                                profe = (Profesor) per;
-                                System.out.println(profe.ImprimeProfesor());
-                                profe.asignaturasProfesor();
-                                correcto = true;
+                            try {
+                                System.out.println("Opción seleccionada: Mantenimiento de asignaturas impartidas por cada profesor: ");
+                                sc.nextLine();
+                                System.out.println("Nombre del profesor: ");
+                                String n = sc.nextLine();
+                                System.out.println("Apellidos del Profesor: ");
+                                String a = sc.nextLine();
+                                key = a.toLowerCase() + ", " + n.toLowerCase();
+                                
+                                if(! lista.containsKey(key)) throw new Exception("No existe ningún profesor con ese nombre.");
+                                
+                                per = lista.get(key);
+                                if (per instanceof Persona) {
+                                    profe = (Profesor) per;
+                                    System.out.println(profe.ImprimeProfesor());
+                                    profe.asignaturasProfesor();
+                                    correcto = true;
+                                }
+                            } catch (Exception e) {
+                                correcto = false;
+                                System.out.println("Error: " + e.getMessage());
                             }
-                        } while (!correcto);
+
+                        } while (! correcto);
                         System.out.println("");
                         break;
                     case 0:
@@ -385,7 +393,7 @@ public class CentroEducativoV3 {
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
-        } while (!correcto);
+        } while (! correcto);
     }
 
     /**
@@ -541,7 +549,7 @@ public class CentroEducativoV3 {
                         do {
                             try {
                                 System.out.println("Indique una Asignatura: ");
-                                String asig = sc.nextLine();
+                                String asig = sc.nextLine().toUpperCase();
                                 if (tmCCASIGNA.containsKey(asig)) {
                                     it = lista.keySet().iterator();
                                     while (it.hasNext()) {
@@ -569,7 +577,7 @@ public class CentroEducativoV3 {
                         System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
                         
                         try {
-                            System.out.println("Indique el código del curso: ");
+                            System.out.println("\nIndique el código del curso: ");
                             String codCurso = sc.nextLine().toUpperCase();
                             System.out.println("Indique el número de la evaluación: ");
                             int eval = sc.nextInt();
@@ -581,8 +589,8 @@ public class CentroEducativoV3 {
                                     System.out.println(alumn.boletinNotas(codCurso, eval));
                                 }
                             }
-                        } catch (Exception e) {
-                            System.out.println("Ha occurrido una excepción: " + e.getMessage());
+                        } catch (Exception en) {
+                            System.out.println("Ha occurrido una excepción: " + en.getMessage());
                         }
                         
                         break;
