@@ -5,17 +5,15 @@
  */
 package profesorampliado;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -31,7 +29,7 @@ public class FuncionesFicheros {
      * @return 
      * @throws IOException 
      */
-    public static void almacenarColPersonasEnArchivo(ArrayList<Persona> lista, File fichero) throws IOException{
+    public static void almacenarDatosFichero(TreeMap<String, Persona> lista, File fichero){
         FileOutputStream fos = null;
         ObjectOutputStream salida = null;
         Persona p;
@@ -42,20 +40,16 @@ public class FuncionesFicheros {
             
             if(! lista.isEmpty()){
                 fos = new FileOutputStream(fichero);
-                
-                Iterator it = lista.iterator();
-                
-                while(it.hasNext()){
-                    salida.writeObject(it.next());
-                }
+                salida = new ObjectOutputStream(fos);               
+                salida.writeObject(lista);
+                salida.flush();
             }
             
-            salida.flush();
             
         } catch (FileNotFoundException e) {
-            System.out.println("1"+e.getMessage());
+            System.out.println("Error: "+e.getMessage());
         } catch (IOException e) {
-            System.out.println("2"+e.getMessage());
+            System.out.println("Error "+e.getMessage());
         } finally {
             try {
                 if(fos !=null) fos.close();
@@ -72,8 +66,8 @@ public class FuncionesFicheros {
      * @return
      * @throws IOException 
      */
-    public static ArrayList<Persona> obtenerTreeMapDeArchivo(File fichero) throws IOException {
-        ArrayList<Persona> lista = new ArrayList<>();
+    public static TreeMap<String, Persona> obtenerDatosFichero(File fichero) throws IOException {
+        TreeMap<String, Persona> lista = new TreeMap<String, Persona>();
         FileInputStream fis = null;
         ObjectInputStream entrada = null;
         Persona p;
@@ -83,12 +77,8 @@ public class FuncionesFicheros {
             
             fis = new FileInputStream(fichero);
             entrada = new ObjectInputStream(fis);
-            Persona obj = (Persona) entrada.readObject();
             
-            while(obj != null){
-                lista.add(obj);
-                obj = (Persona) entrada.readObject();
-            }
+            lista = (TreeMap<String, Persona>) entrada.readObject();
             
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());

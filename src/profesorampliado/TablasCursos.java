@@ -96,10 +96,9 @@ public class TablasCursos {
         
         try {
             crearFichero(DIRECTORY, DTGENERALESFILENAME); //Se crea el fichero si no existe            
-            fichero = new RandomAccessFile(DIRECTORY + DTGENERALESFILENAME, "rw");
-            
+            fichero = new RandomAccessFile(DIRECTORY + DTGENERALESFILENAME, "rw");            
+               
             if (fichero.length() == 0) {
-                
                 boolean correcto = true;
                 
                 do {    

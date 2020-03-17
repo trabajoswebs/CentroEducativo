@@ -8,6 +8,7 @@ package profesorampliado;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,38 +23,38 @@ public class CentroEducativoV4 {
 
     public static String curso;
     public static double pagoPorHoraExtra;
-    static ArrayList<Persona> lista = new ArrayList<Persona>(); 
+    static TreeMap<String, Persona> lista = new TreeMap<String, Persona>();
     static TreeMap<String, String> tmEEEE = new TreeMap<String, String>();//Map con entidades bancarias
     static TreeMap<String, String> tmEEEESSSS = new TreeMap<String, String>();//Map con sucursales bancarias
     static TreeMap<String, String> tmCC = new TreeMap<String, String>();//Map con nombres de cursos
     static TreeMap<String, String> tmCCASIGNA = new TreeMap<String, String>();//Map con curso+asignatura
 
-    public static void setCurso(String curso) {
-        curso = curso;
+    public static void setCurso(String cur) {
+        curso = cur;
     }
 
-    public static void setPagoPorHoraExtra(double pagoPorHoraExtra) {
-        pagoPorHoraExtra = pagoPorHoraExtra;
+    public static void setPagoPorHoraExtra(double pPorHoraExtra) {
+        pagoPorHoraExtra = pPorHoraExtra;
     }
 
-    public static void setLista(TreeMap<String, Persona> lista) {
-        lista = lista;
+    public static void setLista(TreeMap<String, Persona> list) {
+        lista = list;
     }
 
-    public static void setTmEEEE(TreeMap<String, String> tmEEEE) {
-        tmEEEE = tmEEEE;
+    public static void setTmEEEE(TreeMap<String, String> tmpEEEE) {
+        tmEEEE = tmpEEEE;
     }
 
-    public static void setTmEEEESSSS(TreeMap<String, String> tmEEEESSSS) {
-        tmEEEESSSS = tmEEEESSSS;
+    public static void setTmEEEESSSS(TreeMap<String, String> tmpEEEESSSS) {
+        tmEEEESSSS = tmpEEEESSSS;
     }
 
-    public static void setTmCC(TreeMap<String, String> tmCC) {
-        tmCC = tmCC;
+    public static void setTmCC(TreeMap<String, String> tmpCC) {
+        tmCC = tmpCC;
     }
 
-    public static void setTmCCASIGNA(TreeMap<String, String> tmCCASIGNA) {
-        tmCCASIGNA = tmCCASIGNA;
+    public static void setTmCCASIGNA(TreeMap<String, String> tmpCCASIGNA) {
+        tmCCASIGNA = tmpCCASIGNA;
     }
 
     public static String getCurso() {
@@ -64,7 +65,7 @@ public class CentroEducativoV4 {
         return pagoPorHoraExtra;
     }
 
-    public static ArrayList<Persona> getLista() {
+    public static TreeMap<String, Persona> getLista() {
         return lista;
     }
 
@@ -94,7 +95,6 @@ public class CentroEducativoV4 {
             Cuenta.cargaSucursalesBancarias(tmEEEESSSS);
             TablasCursos.cargaCursos(tmCC);
             TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
-
             // CREAMOS UN FICHERO PARA GUARDAR LOS PROFESORES
             File ruta = new File("Profesores\\");//crea un objeto con una ruta
             File fPersonas = new File(ruta, "Personas3.dat");//crea un objeto fichero en la ruta
@@ -102,7 +102,7 @@ public class CentroEducativoV4 {
             
             try {
                 if (fPersonas.exists()) {//Si existe el fichero podemos leer los registros que tiene
-                    lista = FuncionesFicheros.obtenerTreeMapDeArchivo(fPersonas);
+                    lista = FuncionesFicheros.obtenerDatosFichero(fPersonas);
                 } else {
                     fPersonas.createNewFile();
                 }
@@ -154,13 +154,8 @@ public class CentroEducativoV4 {
                         imprimirListados("Curso Académico: %s\nLISTADO DE ALUMNOS\nAPELLIDOS/NOMBRE\n", false, true);
                         break;
                     case 0:
-                    default:
-                        try {   
-                            FuncionesFicheros.almacenarColPersonasEnArchivo(lista, fPersonas);
-                        } catch (IOException e) {
-                            System.out.println("Error: -> " + e.getMessage());
-                        }
-                        
+                    default:   
+                        FuncionesFicheros.almacenarDatosFichero(lista, fPersonas);  
                         salir = true;
                         break;
 
@@ -183,31 +178,31 @@ public class CentroEducativoV4 {
 
         do {
 
-            System.out.println("\n\n\n *************** MANTENIMIENTO DE PROFESORES ***************\n");
-            System.out.println("\t1. ALTA DE UN PROFESOR");
-            System.out.println("\t2. BAJA DE UN PROFESOR");
-            System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN PROFESOR");
-            System.out.println("\t4. INTRODUCIR HORAS EXTRAORDINARIAS DE UN MES");
-            System.out.println("\t5. LISTADO DE PROFESORES. DATOS PERSONALES");
-            System.out.println("\t6. LISTADO DE PROFESORES. CLASES QUE IMPARTEN");
-            System.out.println("\t7. LISTADO DE NOMINAS DE UN MES");
-            System.out.println("\t8. MANTENIMIENTO DE ASIGNATURAS IMPARTIDAS POR CADA PROFESOR");
-            System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
-            System.out.print("\n\t   Opcion seleccionada: ");
-            opt = sc.nextInt();
-            try {
+            try {                
+                System.out.println("\n\n\n *************** MANTENIMIENTO DE PROFESORES ***************\n");
+                System.out.println("\t1. ALTA DE UN PROFESOR");
+                System.out.println("\t2. BAJA DE UN PROFESOR");
+                System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN PROFESOR");
+                System.out.println("\t4. INTRODUCIR HORAS EXTRAORDINARIAS DE UN MES");
+                System.out.println("\t5. LISTADO DE PROFESORES. DATOS PERSONALES");
+                System.out.println("\t6. LISTADO DE PROFESORES. CLASES QUE IMPARTEN");
+                System.out.println("\t7. LISTADO DE NOMINAS DE UN MES");
+                System.out.println("\t8. MANTENIMIENTO DE ASIGNATURAS IMPARTIDAS POR CADA PROFESOR");
+                System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
+                System.out.print("\n\t   Opcion seleccionada: ");
+                opt = sc.nextInt();
                 switch (opt) {
                     case 1:
                         System.out.println("Opcion seleccionada: Alta profesor");
-                        try {
+                         try {
                             profe = new Profesor();
                             profe.nuevoProfesor();
-                            
-                            if(! lista.equals(profe)){//Comprueba que dos profesores no sean iguales
-                                lista.add(profe);                                
-                            }else{
-                                throw new Exception("El nombre del profesor ya existe");
+                            key = profe.getApellidos() + ", " + profe.getNombre();
+                            System.out.println(key);
+                            if (lista.containsKey(key)) {
+                                throw new Exception("Este nombre ya existe. No puedo grabarlo");
                             }
+                            lista.put(key, profe);
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
@@ -221,8 +216,8 @@ public class CentroEducativoV4 {
                                 String n = sc.nextLine();
                                 System.out.println("indique el apellido del profesor:");
                                 String a = sc.nextLine();
-                                
-                                if(lista.equals(a)){
+                                key = a + ", " + n;
+                                if (lista.containsKey(key) == false) {
                                     throw new Exception("El nombre que desea eliminar no existe");
                                 }
                                 lista.remove(key);
@@ -302,14 +297,13 @@ public class CentroEducativoV4 {
                     case 5:
                         System.out.println("Opción seleccionada: Imprime datos personales de los profesores.");
                         Iterator it = lista.keySet().iterator();
-
-                        while (it.hasNext()) {
-                            System.out.println(it.next());
+                        
+                        while (it.hasNext()) {                            
                             key = (String) it.next();
                             per = lista.get(key);
                             if (per instanceof Profesor) {
-                                profe = (Profesor) per;
-                                System.out.println(profe.toString());
+                                profe = (Profesor) per;                                
+                                System.out.println(profe.ImprimeProfesor());
                                 System.out.println();
                             }
                         }
@@ -395,18 +389,19 @@ public class CentroEducativoV4 {
         int opt = 0;
         String key;
         do {
-            System.out.println("\n\n\n *************** MANTENIMIENTO DE ALUMNOS ***************\n");
-            System.out.println("\t1. ALTA DE UN ALUMNO");
-            System.out.println("\t2. BAJA DE UN ALUMNO");
-            System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN ALUMNO");
-            System.out.println("\t4. INTRODUCIR NOTAS DE UNA ASIGNATURA Y EVALUACION A TODOS LOS MATRICULADOS");
-            System.out.println("\t5. LISTADO DE ALUMNOS DE UN GRUPO. DATOS PERSONALES");
-            System.out.println("\t6. LISTADO DE ALUMNOS MATRICULADOS EN UNA ASIGNATURA");
-            System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
-            System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
-            System.out.print("\n\t   Opcion seleccionada: ");
-            opt = sc.nextInt();
+            
             try {
+                System.out.println("\n\n\n *************** MANTENIMIENTO DE ALUMNOS ***************\n");
+                System.out.println("\t1. ALTA DE UN ALUMNO");
+                System.out.println("\t2. BAJA DE UN ALUMNO");
+                System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN ALUMNO");
+                System.out.println("\t4. INTRODUCIR NOTAS DE UNA ASIGNATURA Y EVALUACION A TODOS LOS MATRICULADOS");
+                System.out.println("\t5. LISTADO DE ALUMNOS DE UN GRUPO. DATOS PERSONALES");
+                System.out.println("\t6. LISTADO DE ALUMNOS MATRICULADOS EN UNA ASIGNATURA");
+                System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
+                System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
+                System.out.print("\n\t   Opcion seleccionada: ");
+                opt = sc.nextInt();
                 switch (opt) {
                     case 0:
                         break;
@@ -490,8 +485,7 @@ public class CentroEducativoV4 {
                                             nota[i] = sc.nextInt();
                                             if (nota[i] < 0 || nota[i] > 10) {
                                                 throw new Exception("Las notas solo puntuan de 0 a 10.");
-                                            }
-                                            break;
+                                            }                                            
                                         }
 
                                         al.getTmAsignaturasAlumno().get(keyAsig).setNotas(nota);

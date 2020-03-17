@@ -5,11 +5,13 @@
  */
 package profesorampliado;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Acer
  */
-public class Notas {
+public class Notas implements Serializable{
     public int notas[];
 
     public void setNotas(int[] notas) {

@@ -270,9 +270,22 @@ public class Profesor extends Persona{
     //Método ImprimeProfesor() que se le llama desde el main mediante una
     //instancia de la clase Profesor y escribe sus datos personales:    
     public String ImprimeProfesor() {
-        String resumen;
-        resumen = "Nombre: " + this.getNombre() + "\nDNI: " + this.getDni() + "\nSueldo Base: " + this.getSueldoBase() + "\nTipo IRPF: " + this.getTipoIRPF();
-        return resumen;
+        StringBuilder cadena = new StringBuilder();
+        cadena.append("\nNombre: ");
+        cadena.append(this.getNombre());
+        cadena.append("\nApellido: ");
+        cadena.append(this.getApellidos());
+        cadena.append("\nDni: ");
+        cadena.append(this.getDni());
+        cadena.append("\nFecha de Nacimiento: ");
+        cadena.append(this.getFechaNacimiento());
+        cadena.append("\nDomicilio: ");
+        cadena.append(this.getCalle());
+        cadena.append("\nCiudad: ");
+        cadena.append(this.getCiudad());
+        cadena.append("\nCódigo Postal: ");
+        cadena.append(this.getCodigoPostal());
+        return cadena.toString();
     }
 
     //Método leer profesores
@@ -313,14 +326,5 @@ public class Profesor extends Persona{
         return meses[mes - 1];
     }
     
-    /**
-     * Dos profesores son iguales si tienen el mismo nombre y apellidos
-     * @return 
-     */
-    @Override
-    public boolean equals(Object obj) {
-        return (this.getApellidos().equals(((Profesor) obj).getApellidos())
-                && this.getNombre().equals(((Profesor) obj).getNombre()));
-    }
-
+    
 }

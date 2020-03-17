@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class Persona implements Serializable{
 
     public String getNombre() {
-        return nombre;
+        return nombre.toLowerCase();
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellidos.toLowerCase();
     }
 
     public String getCalle() {

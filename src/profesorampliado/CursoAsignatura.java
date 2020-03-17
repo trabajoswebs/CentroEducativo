@@ -54,7 +54,7 @@ public class CursoAsignatura {
                     throw new Exception("Debe introducir un código de asignatura válido.");
                 }
                 
-                if (! CentroEducativoV4.getTmCCASIGNA().containsKey(codCurso)) { //Comprobamos la existencia del código de la asignatura
+                if (! CentroEducativoV4.getTmCCASIGNA().containsKey(codCurso.toUpperCase())) { //Comprobamos la existencia del código de la asignatura
                     throw new Exception("La asignatura no existe.");
                 }
                 
@@ -107,14 +107,14 @@ public class CursoAsignatura {
                      
                         if (ficheroOriginal.renameTo(destFichero)) {//Renombramos el fichero
                             
-                            if (CentroEducativoV4.getTmCCASIGNA().containsKey(codCurso)) { //Actualizamos el TreeMap
-                                CentroEducativoV4.getTmCCASIGNA().remove(codCurso); // Eliminamos la asignatura del treemap
+                            if (CentroEducativoV4.getTmCCASIGNA().containsKey(codCurso.toUpperCase())) { //Actualizamos el TreeMap
+                                CentroEducativoV4.getTmCCASIGNA().remove(codCurso.toUpperCase()); // Eliminamos la asignatura del treemap
                             }else{
                                 CentroEducativoV4.getTmCCASIGNA().clear();//Eliminamos todos los datos del TreeMap
                                 TablasCursos.cargaCursos(CentroEducativoV4.getTmCCASIGNA()); //Si ocurre un error volcamos los datos del fichero al TreeMap y lo actualizamos
                             }
 
-                        System.out.println("Se ha eliminado correctamente la asignatura  " + codCurso + " del fichero.");
+                        System.out.println("Se ha eliminado correctamente la asignatura  " + codCurso.toUpperCase() + " del fichero.");
                         System.out.println("Si desea eliminar más asignaturas de la lista introduzca la letra: \"S\"");
 
                         continuar = sc.nextLine();
