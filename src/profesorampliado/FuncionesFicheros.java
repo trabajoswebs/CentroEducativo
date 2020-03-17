@@ -12,8 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -25,9 +23,7 @@ public class FuncionesFicheros {
     /**
      * 
      * @param lista
-     * @param fichero
-     * @return 
-     * @throws IOException 
+     * @param fichero 
      */
     public static void almacenarDatosFichero(TreeMap<String, Persona> lista, File fichero){
         FileOutputStream fos = null;
@@ -67,7 +63,7 @@ public class FuncionesFicheros {
      * @throws IOException 
      */
     public static TreeMap<String, Persona> obtenerDatosFichero(File fichero) throws IOException {
-        TreeMap<String, Persona> lista = new TreeMap<String, Persona>();
+        TreeMap<String, Persona> lista = new TreeMap<>();
         FileInputStream fis = null;
         ObjectInputStream entrada = null;
         Persona p;

@@ -16,13 +16,13 @@ import java.util.TreeMap;
 public class Alumno extends Persona{
     
     public Alumno(){
-        this.tmAsignaturasAlumno = new TreeMap<String, Notas>();
+        this.tmAsignaturasAlumno = new TreeMap<>();
     }
 
     public Alumno(String curso, String nombre, String apellidos, String calle, String codigoPostal, String ciudad, String dni, String fechaNacimiento) {
         super(nombre, apellidos, calle, codigoPostal, ciudad, dni, fechaNacimiento);
         this.curso = curso;
-        this.tmAsignaturasAlumno = new TreeMap<String, Notas>();
+        this.tmAsignaturasAlumno = new TreeMap<>();
     }
     
     private String curso;//comprobar su existencia en Treemaps tmCursos
@@ -41,7 +41,7 @@ public class Alumno extends Persona{
         do {
             try {
                 System.out.println("Introducir el curso: ");
-                curso = sc.nextLine();
+                curso = sc.nextLine().toUpperCase();
                 if (CentroEducativoV4.tmCC.containsKey(curso)) {
                     this.curso = curso;
                     correcto = true;
@@ -54,7 +54,7 @@ public class Alumno extends Persona{
                 do {
                     try {
                         System.out.println("Introducir la asignatura: ");
-                        asignatura = sc.nextLine();
+                        asignatura = sc.nextLine().toUpperCase();
 
                         if (CentroEducativoV4.tmCCASIGNA.containsKey(asignatura)) {
 

@@ -7,8 +7,6 @@ package profesorampliado;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Map;
@@ -535,7 +533,7 @@ public class CentroEducativoV4 {
                         do {
                             try {
                                 System.out.println("Indique una Asignatura: ");
-                                String asig = sc.nextLine();
+                                String asig = sc.nextLine().toUpperCase();
                                 if (tmCCASIGNA.containsKey(asig)) {
                                     it = lista.keySet().iterator();
                                     while (it.hasNext()) {
