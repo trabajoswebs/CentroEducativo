@@ -27,32 +27,32 @@ public class CentroEducativoV3 {
     static TreeMap<String, String> tmCC = new TreeMap<String, String>();//Map con nombres de cursos
     static TreeMap<String, String> tmCCASIGNA = new TreeMap<String, String>();//Map con curso+asignatura
 
-    public static void setCurso(String curso) {
-        curso = curso;
+    public static void setCurso(String cur) {
+        curso = cur;
     }
 
-    public static void setPagoPorHoraExtra(double pagoPorHoraExtra) {
-        pagoPorHoraExtra = pagoPorHoraExtra;
+    public static void setPagoPorHoraExtra(double pPorHoraExtra) {
+        pagoPorHoraExtra = pPorHoraExtra;
     }
 
-    public static void setLista(TreeMap<String, Persona> lista) {
-        lista = lista;
+    public static void setLista(TreeMap<String, Persona> list) {
+        lista = list;
     }
 
-    public static void setTmEEEE(TreeMap<String, String> tmEEEE) {
-        tmEEEE = tmEEEE;
+    public static void setTmEEEE(TreeMap<String, String> tmpEEEE) {
+        tmEEEE = tmpEEEE;
     }
 
-    public static void setTmEEEESSSS(TreeMap<String, String> tmEEEESSSS) {
-        tmEEEESSSS = tmEEEESSSS;
+    public static void setTmEEEESSSS(TreeMap<String, String> tmpEEEESSSS) {
+        tmEEEESSSS = tmpEEEESSSS;
     }
 
-    public static void setTmCC(TreeMap<String, String> tmCC) {
-        tmCC = tmCC;
+    public static void setTmCC(TreeMap<String, String> tmpCC) {
+        tmCC = tmpCC;
     }
 
-    public static void setTmCCASIGNA(TreeMap<String, String> tmCCASIGNA) {
-        tmCCASIGNA = tmCCASIGNA;
+    public static void setTmCCASIGNA(TreeMap<String, String> tmpCCASIGNA) {
+        tmCCASIGNA = tmpCCASIGNA;
     }
 
     public static String getCurso() {
@@ -490,7 +490,6 @@ public class CentroEducativoV3 {
                                             if (nota[i] < 0 || nota[i] > 10) {
                                                 throw new Exception("Las notas solo puntuan de 0 a 10.");
                                             }
-                                            break;
                                         }
 
                                         al.getTmAsignaturasAlumno().get(keyAsig).setNotas(nota);
