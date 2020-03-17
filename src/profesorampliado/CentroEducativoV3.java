@@ -182,19 +182,20 @@ public class CentroEducativoV3 {
 
         do {
 
-            System.out.println("\n\n\n *************** MANTENIMIENTO DE PROFESORES ***************\n");
-            System.out.println("\t1. ALTA DE UN PROFESOR");
-            System.out.println("\t2. BAJA DE UN PROFESOR");
-            System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN PROFESOR");
-            System.out.println("\t4. INTRODUCIR HORAS EXTRAORDINARIAS DE UN MES");
-            System.out.println("\t5. LISTADO DE PROFESORES. DATOS PERSONALES");
-            System.out.println("\t6. LISTADO DE PROFESORES. CLASES QUE IMPARTEN");
-            System.out.println("\t7. LISTADO DE NOMINAS DE UN MES");
-            System.out.println("\t8. MANTENIMIENTO DE ASIGNATURAS IMPARTIDAS POR CADA PROFESOR");
-            System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
-            System.out.print("\n\t   Opcion seleccionada: ");
-            opt = sc.nextInt();
             try {
+                System.out.println("\n\n\n *************** MANTENIMIENTO DE PROFESORES ***************\n");
+                System.out.println("\t1. ALTA DE UN PROFESOR");
+                System.out.println("\t2. BAJA DE UN PROFESOR");
+                System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN PROFESOR");
+                System.out.println("\t4. INTRODUCIR HORAS EXTRAORDINARIAS DE UN MES");
+                System.out.println("\t5. LISTADO DE PROFESORES. DATOS PERSONALES");
+                System.out.println("\t6. LISTADO DE PROFESORES. CLASES QUE IMPARTEN");
+                System.out.println("\t7. LISTADO DE NOMINAS DE UN MES");
+                System.out.println("\t8. MANTENIMIENTO DE ASIGNATURAS IMPARTIDAS POR CADA PROFESOR");
+                System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
+                System.out.print("\n\t   Opcion seleccionada: ");
+                opt = sc.nextInt();
+                
                 switch (opt) {
                     case 1:
                         System.out.println("Opcion seleccionada: Alta profesor");
@@ -217,9 +218,9 @@ public class CentroEducativoV3 {
                             try {
                                 System.out.println("Opción seleccionada: Baja Profesor");
                                 System.out.println("indique el nombre del profesor:");
-                                String n = sc.nextLine();
+                                String n = sc.nextLine().toLowerCase();
                                 System.out.println("indique el apellido del profesor:");
-                                String a = sc.nextLine();
+                                String a = sc.nextLine().toLowerCase();
                                 key = a + ", " + n;
                                 if (lista.containsKey(key) == false) {
                                     throw new Exception("El nombre que desea eliminar no existe");
@@ -238,9 +239,9 @@ public class CentroEducativoV3 {
                             try {
                                 sc.nextLine();
                                 System.out.println("Indique el nombre del profesor: ");
-                                String n = sc.nextLine();
+                                String n = sc.nextLine().toLowerCase();
                                 System.out.println("Indique los apellidos del profesor: ");
-                                String a = sc.nextLine();
+                                String a = sc.nextLine().toLowerCase();
                                 key = a + ", " + n;
 
                                 if (lista.containsKey(key)) {
@@ -267,8 +268,8 @@ public class CentroEducativoV3 {
                          horas;
                         do {
                             try {
-                                System.out.println("Opcion seleccionada: Introducir horas extras por mes: ");
-                                System.out.println("Horas extraordinarias por los profesores en el mes de: ");
+                                System.out.println("\tOpcion seleccionada: Introducir horas extras por mes: ");
+                                System.out.println("\nHoras extraordinarias por los profesores en el mes de: ");
                                 mes = sc.nextInt();
                                 if (mes < 0 && mes > 12) {
                                     throw new Exception("Mes incorrecto.");
@@ -366,11 +367,11 @@ public class CentroEducativoV3 {
                             String n = sc.nextLine();
                             System.out.println("Apellidos del Profesor: ");
                             String a = sc.nextLine();
-                            key = a + ", " + n;
+                            key = a.toLowerCase() + ", " + n.toLowerCase();
                             per = lista.get(key);
                             if (per instanceof Persona) {
                                 profe = (Profesor) per;
-                                System.out.println(profe.toString());
+                                System.out.println(profe.ImprimeProfesor());
                                 profe.asignaturasProfesor();
                                 correcto = true;
                             }
@@ -394,18 +395,19 @@ public class CentroEducativoV3 {
         int opt = 0;
         String key;
         do {
-            System.out.println("\n\n\n *************** MANTENIMIENTO DE ALUMNOS ***************\n");
-            System.out.println("\t1. ALTA DE UN ALUMNO");
-            System.out.println("\t2. BAJA DE UN ALUMNO");
-            System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN ALUMNO");
-            System.out.println("\t4. INTRODUCIR NOTAS DE UNA ASIGNATURA Y EVALUACION A TODOS LOS MATRICULADOS");
-            System.out.println("\t5. LISTADO DE ALUMNOS DE UN GRUPO. DATOS PERSONALES");
-            System.out.println("\t6. LISTADO DE ALUMNOS MATRICULADOS EN UNA ASIGNATURA");
-            System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
-            System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
-            System.out.print("\n\t   Opcion seleccionada: ");
-            opt = sc.nextInt();
             try {
+                System.out.println("\n\n\n *************** MANTENIMIENTO DE ALUMNOS ***************\n");
+                System.out.println("\t1. ALTA DE UN ALUMNO");
+                System.out.println("\t2. BAJA DE UN ALUMNO");
+                System.out.println("\t3. CONSULTA DE DATOS PERSONALES DE UN ALUMNO");
+                System.out.println("\t4. INTRODUCIR NOTAS DE UNA ASIGNATURA Y EVALUACION A TODOS LOS MATRICULADOS");
+                System.out.println("\t5. LISTADO DE ALUMNOS DE UN GRUPO. DATOS PERSONALES");
+                System.out.println("\t6. LISTADO DE ALUMNOS MATRICULADOS EN UNA ASIGNATURA");
+                System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
+                System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
+                System.out.print("\n\t   Opcion seleccionada: ");
+                opt = sc.nextInt();
+                
                 switch (opt) {
                     case 0:
                         break;
@@ -509,7 +511,7 @@ public class CentroEducativoV3 {
                         do {
                             try {
                                 System.out.println("Indique el código de un curso: ");
-                                String curso = sc.nextLine();
+                                String curso = sc.nextLine().toUpperCase();
                                 if (tmCC.containsKey(curso)) {
                                     it = lista.keySet().iterator();
                                     while (it.hasNext()) {
@@ -568,7 +570,7 @@ public class CentroEducativoV3 {
                         
                         try {
                             System.out.println("Indique el código del curso: ");
-                            String codCurso = sc.nextLine();
+                            String codCurso = sc.nextLine().toUpperCase();
                             System.out.println("Indique el número de la evaluación: ");
                             int eval = sc.nextInt();
                             it = lista.keySet().iterator();
@@ -603,9 +605,9 @@ public class CentroEducativoV3 {
         String nombre, apellido;
         sc.nextLine();
         System.out.println("Indica el nombre:");
-        nombre = sc.nextLine();
+        nombre = sc.nextLine().toLowerCase();
         System.out.println("Indica el apellido:");
-        apellido = sc.nextLine();
+        apellido = sc.nextLine().toLowerCase();
 
         nombreCompleto.append(apellido);
         nombreCompleto.append(", ");

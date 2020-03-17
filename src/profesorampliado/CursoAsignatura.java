@@ -48,7 +48,7 @@ public class CursoAsignatura {
                 System.out.println("\nListado de cursos: ");
                 System.out.println(imprimeCursosAsignaturas());
                 System.out.print("Indique el código del curso que desea eliminar: ");
-                codCurso = sc.nextLine();
+                codCurso = sc.nextLine().toUpperCase();
                 
                 if (codCurso.trim().isEmpty()) {
                     throw new Exception("Debe introducir un código de asignatura válido.");
@@ -173,7 +173,7 @@ public class CursoAsignatura {
 
             try {
                 System.out.println("Introduzca el código de la asignatura:");
-                codCursoAsignatura = sc.nextLine();
+                codCursoAsignatura = sc.nextLine().toUpperCase();
                 
                  if (codCursoAsignatura.isEmpty()) {
                     throw new Exception("Debe introducir el código de la asignatura.");
@@ -185,7 +185,7 @@ public class CursoAsignatura {
                 }
                 
                 System.out.println("Introduzca el nombre de la asignatura:");
-                nombreAsignatura = sc.nextLine();                
+                nombreAsignatura = sc.nextLine().toUpperCase();                
                
                 if (nombreAsignatura.isEmpty()) {
                     throw new Exception("Debe introducir el nombre de la asignatura.");

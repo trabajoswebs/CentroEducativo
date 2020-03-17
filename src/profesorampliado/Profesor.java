@@ -98,7 +98,7 @@ public class Profesor extends Persona{
         Scanner sc = new Scanner(System.in);
         System.out.println("Indica la asignaruta que va a impartir: ");
         String key = "";
-        System.out.println("Profesor: " + this.getApellidos().toUpperCase() + ", " + this.getNombre());
+        System.out.println("Profesor: " + this.getApellidos().toLowerCase()+ ", " + this.getNombre().toLowerCase());
         int option = 0;
         do {
             System.out.println("");
@@ -135,7 +135,7 @@ public class Profesor extends Persona{
                     System.out.println("");
                     sc.nextLine();
                     System.out.println("Indique el código de la asignatura: ");
-                    key = sc.nextLine();
+                    key = sc.nextLine().toUpperCase();
                     if (CentroEducativoV3.tmCCASIGNA.containsKey(key)) {
                         String nombre = CentroEducativoV3.tmCCASIGNA.get(key);
                         System.out.println(key + ": " + nombre);
@@ -147,7 +147,7 @@ public class Profesor extends Persona{
                     System.out.println("");
                     sc.nextLine();
                     System.out.println("Indique el código de la asignatura que desea eliminar: ");
-                    key = sc.nextLine();
+                    key = sc.nextLine().toUpperCase();
                     if (this.tmAsignaturas.containsKey(key)) {
                         this.tmAsignaturas.remove(key);
                     }
@@ -270,9 +270,22 @@ public class Profesor extends Persona{
     //Método ImprimeProfesor() que se le llama desde el main mediante una
     //instancia de la clase Profesor y escribe sus datos personales:    
     public String ImprimeProfesor() {
-        String resumen;
-        resumen = "Nombre: " + this.getNombre() + "\nDNI: " + this.getDni() + "\nSueldo Base: " + this.getSueldoBase() + "\nTipo IRPF: " + this.getTipoIRPF();
-        return resumen;
+        StringBuilder cadena = new StringBuilder();
+        cadena.append("\nNombre: ");
+        cadena.append(this.getNombre());
+        cadena.append("\nApellido: ");
+        cadena.append(this.getApellidos());
+        cadena.append("\nDni: ");
+        cadena.append(this.getDni());
+        cadena.append("\nFecha de Nacimiento: ");
+        cadena.append(this.getFechaNacimiento());
+        cadena.append("\nDomicilio: ");
+        cadena.append(this.getCalle());
+        cadena.append("\nCiudad: ");
+        cadena.append(this.getCiudad());
+        cadena.append("\nCódigo Postal: ");
+        cadena.append(this.getCodigoPostal());
+        return cadena.toString();
     }
 
     //Método leer profesores

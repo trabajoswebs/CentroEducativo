@@ -36,14 +36,14 @@ public class Alumno extends Persona{
         super.pideDatos();
         Scanner sc = new Scanner(System.in);
         boolean correcto = true;
-        String curso;
+        String cur;
 
         do {
             try {
                 System.out.println("Introducir el curso: ");
-                curso = sc.nextLine();
-                if (CentroEducativoV3.tmCC.containsKey(curso)) {
-                    this.curso = curso;
+                cur = sc.nextLine().toUpperCase();
+                if (CentroEducativoV3.tmCC.containsKey(cur)) {
+                    this.curso = cur;
                     correcto = true;
                 } else {
                     throw new Exception("El curso indicado no es correcto. ");
@@ -54,7 +54,7 @@ public class Alumno extends Persona{
                 do {
                     try {
                         System.out.println("Introducir la asignatura: ");
-                        asignatura = sc.nextLine();
+                        asignatura = sc.nextLine().toUpperCase();
 
                         if (CentroEducativoV3.tmCCASIGNA.containsKey(asignatura)) {
 
@@ -136,6 +136,7 @@ public class Alumno extends Persona{
      * @param curso
      * @param evaluacion
      * @return 
+     * @throws java.lang.Exception 
      */
     String boletinNotas(String curso, int evaluacion) throws Exception {
         String[] eval = {"Primera Evaluación", "Segunda Evaluación", "Tercera Evaluación", "Evaluación Ordinaria", "Evaluación Extraordinaria"};
