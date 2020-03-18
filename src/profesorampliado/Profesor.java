@@ -298,7 +298,9 @@ public class Profesor extends Persona{
     //imprime una nómina de la instancia que le llama en ese mes
     public String ImprimirNominas(int mes) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Nombre: ");
+         sb.append("\n\tMES: " );
+        sb.append(conocerMes(mes).toUpperCase());
+        sb.append("\nNombre: ");
         sb.append(this.getNombre() + ", " + this.getApellidos());
         sb.append("\nDNI: ");
         sb.append(this.getDni());
