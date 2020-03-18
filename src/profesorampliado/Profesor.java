@@ -224,7 +224,7 @@ public class Profesor extends Persona{
      * @return the horasExtra
      */
     public int getHorasExtra(int m) {
-        return horasExtras[m];
+        return horasExtras[m-1];
     }
 
     public void setHorasExtra(int i, int horasExtra) {
