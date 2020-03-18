@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package profesorampliado;
+package centroEducativo;
 
 import static java.lang.Integer.parseInt;
 import java.util.Scanner;
