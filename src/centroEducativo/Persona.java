@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class Persona implements Serializable{
     
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 4L; //http://chuwiki.chuidiang.org/index.php?title=Serializaci%C3%B3n_de_objetos_en_java#Serial_Version_UID
 
     public String getNombre() {
         return nombre.toLowerCase();
