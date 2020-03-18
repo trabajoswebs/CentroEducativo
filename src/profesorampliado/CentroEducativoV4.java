@@ -322,13 +322,14 @@ public class CentroEducativoV4 {
                         break;
 
                     case 7:
-                        correcto = false;
+                        
                         do {
                             System.out.println("Opción seleccionada: Imprimir nomina de cada profesor según el mes: ");
                             try {
-                                System.out.println("Nómnias del mes: ");
+                                correcto = false;
+                                System.out.println("Nómnias del mes 1 a 12: ");
                                 mes = sc.nextInt();
-                                if (mes < 0 || mes > 12) {
+                                if (mes < 1 || mes > 12) {
                                     throw new InputMismatchException("Error al introducir el mes del año: ");
                                 }
                                 it = lista.keySet().iterator();
@@ -347,7 +348,7 @@ public class CentroEducativoV4 {
                             } catch (Exception e) {
                                 System.out.println("Error: " + e.getMessage());
                             }
-                        } while (!correcto);
+                        } while (! correcto);
                         break;
                     case 8:
                         correcto = false;

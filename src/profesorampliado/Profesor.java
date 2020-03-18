@@ -224,11 +224,11 @@ public class Profesor extends Persona{
      * @return the horasExtra
      */
     public int getHorasExtra(int m) {
-        return horasExtras[m];
+        return horasExtras[m-1];
     }
 
     public void setHorasExtra(int i, int horasExtra) {
-        this.horasExtras[i] = horasExtra;
+        this.horasExtras[i-1] = horasExtra;
     }
 
     /**
@@ -247,7 +247,7 @@ public class Profesor extends Persona{
 
     //Calculo del importe de las horas extras por mes    
     private double calcularImporteHorasExtras(int mes) {
-        return this.horasExtras[mes] * CentroEducativoV4.getPagoPorHoraExtra();
+        return this.horasExtras[mes-1] * CentroEducativoV4.getPagoPorHoraExtra();
     }
 
     //Método para calcular el sueldo bruto de un mes (sueldo base +
@@ -297,11 +297,12 @@ public class Profesor extends Persona{
     //imprime una nómina de la instancia que le llama en ese mes
     public String ImprimirNominas(int mes) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Nombre: ");
+        sb.append("\n\tMES: " );
+        sb.append(conocerMes(mes).toUpperCase());
+        sb.append("\nNombre: ");
         sb.append(this.getNombre() + ", " + this.getApellidos());
         sb.append("\nDNI: ");
         sb.append(this.getDni());
-        sb.append(this.toString());
         sb.append("\nCurso: ");
         sb.append(CentroEducativoV4.getCurso());
         sb.append("\nNomina mes: ");
@@ -314,8 +315,6 @@ public class Profesor extends Persona{
         sb.append(this.calcularSueldoBruto(mes));
         sb.append("\nRetención IRPF: ");
         sb.append(this.calcularRetencionIrpf(mes));
-        sb.append("\nSueldo Bruto: ");
-        sb.append(this.calcularSueldoBruto(mes));
         sb.append("\nSueldo: ");
         sb.append(this.calcularSueldo(mes));
         return sb.toString();
