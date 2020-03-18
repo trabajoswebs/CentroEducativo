@@ -271,7 +271,7 @@ public class CentroEducativoV3 {
                                 System.out.println("\tOpcion seleccionada: Introducir horas extras por mes: ");
                                 System.out.println("\nHoras extraordinarias por los profesores en el mes de: ");
                                 mes = sc.nextInt();
-                                if (mes < 0 && mes > 12) {
+                                if (mes < 1 && mes > 12) {
                                     throw new Exception("Mes incorrecto.");
                                 }
 
@@ -288,7 +288,7 @@ public class CentroEducativoV3 {
                                         if (horas > 20) {
                                             throw new Exception("No se puede exceder de mas de 20 horas al mes");
                                         }
-                                        profe.setHorasExtra(mes, horas);
+                                        profe.setHorasExtra(mes-1, horas);
                                     }
                                 }
                                 correcto = true;
@@ -335,7 +335,7 @@ public class CentroEducativoV3 {
                             try {
                                 System.out.println("Nómnias del mes: ");
                                 mes = sc.nextInt();
-                                if (mes < 0 || mes > 12) {
+                                if (mes < 1 || mes > 12) {
                                     throw new InputMismatchException("Error al introducir el mes del año: ");
                                 }
                                 it = lista.keySet().iterator();
