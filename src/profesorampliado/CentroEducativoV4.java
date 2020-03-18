@@ -504,7 +504,7 @@ public class CentroEducativoV4 {
                         do {
                             try {
                                 System.out.println("Indique el código de un curso: ");
-                                String curso = sc.nextLine();
+                                String curso = sc.nextLine().toUpperCase();
                                 if (tmCC.containsKey(curso)) {
                                     it = lista.keySet().iterator();
                                     while (it.hasNext()) {
