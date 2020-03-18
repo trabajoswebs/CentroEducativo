@@ -558,9 +558,10 @@ public class CentroEducativoV4 {
 
                         break;
                     case 7:
-                        sc.nextLine();
                         System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
-                        
+                        boolean correcto = false;
+                        do{
+                            sc.nextLine();
                         try {
                             System.out.println("Indique el código del curso: ");
                             String codCurso = sc.nextLine();
@@ -574,17 +575,20 @@ public class CentroEducativoV4 {
                                     System.out.println(alumn.boletinNotas(codCurso, eval));
                                 }
                             }
-                        } catch (Exception e) {
+                            correcto = true;
+                        } catch (InputMismatchException  e) {
+                            correcto = false;
                             System.out.println("Ha occurrido una excepción: " + e.getMessage());
                         }
+                        }while(! correcto);
                         
                         break;
                     default:
                         break;
                 }
-            } catch (Exception e) {
+            } catch (Exception ex) {
                 sc.nextLine();
-                System.out.println("Ha ocurrido una excepción en el submenu Alumno: " + e.getMessage());
+                System.out.println("Ha ocurrido una excepción en el submenu Alumno: " + ex.getMessage());
             }
         } while (opt != 0);
     }
