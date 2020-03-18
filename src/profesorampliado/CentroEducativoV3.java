@@ -86,87 +86,86 @@ public class CentroEducativoV3 {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        
-            //Se carga TreeMap y las variables globales
-            TablasCursos.cargaGlobales();
-            Cuenta.cargaEntidadesBancarias(tmEEEE);
-            Cuenta.cargaSucursalesBancarias(tmEEEESSSS);
-            TablasCursos.cargaCursos(tmCC);
-            TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
 
-            // CREAMOS UN FICHERO PARA GUARDAR LOS PROFESORES
-            File ruta = new File("Profesores\\");//crea un objeto con una ruta
-            File fPersonas = new File(ruta, "Personas3.txt");//crea un objeto fichero en la ruta
+        //Se carga TreeMap y las variables globales
+        TablasCursos.cargaGlobales();
+        Cuenta.cargaEntidadesBancarias(tmEEEE);
+        Cuenta.cargaSucursalesBancarias(tmEEEESSSS);
+        TablasCursos.cargaCursos(tmCC);
+        TablasCursos.cargaCursosAsignaturas(tmCCASIGNA);
 
-            
-            try {
-                if (fPersonas.exists()) {//Si existe el fichero podemos leer los registros que tiene
-                    lista = FuncionesFicheros.obtenerTreeMapDeArchivo(fPersonas);
-                } else {
-                    fPersonas.createNewFile();
-                }
-            } catch (IOException e) {
-                System.out.println("Ha ocurrido un error con el fichero: " + e.getMessage());
+        // CREAMOS UN FICHERO PARA GUARDAR LOS PROFESORES
+        File ruta = new File("Profesores\\");//crea un objeto con una ruta
+        File fPersonas = new File(ruta, "Personas3.txt");//crea un objeto fichero en la ruta
+
+        try {
+            if (fPersonas.exists()) {//Si existe el fichero podemos leer los registros que tiene
+                lista = FuncionesFicheros.obtenerTreeMapDeArchivo(fPersonas);
+            } else {
+                fPersonas.createNewFile();
             }
-         
-            Boolean salir = false;
+        } catch (IOException e) {
+            System.out.println("Ha ocurrido un error con el fichero: " + e.getMessage());
+        }
 
-            int option = 0;
-            do {
-                System.out.println("\n*************** MENU PRINCIPAL ***************\n");
-                System.out.println("\t1. MANTENIMIENTO ALUMNOS");
-                System.out.println("\t2. MANTENIMIENTO PROFESORES");
-                System.out.println("\t3. MANTENIMIENTO CURSOS");
-                System.out.println("\t4. MANTENIMIENTO ASIGNATURAS");
-                System.out.println("\t5. MANTENIMIENTO CUENTAS BANCARIAS");
-                System.out.println("\t6. LISTADO DE NOMBRES DE PROFESORES Y ALUMNOS");
-                System.out.println("\t7. LISTADO DE NOMBRES DE PROFESORES");
-                System.out.println("\t8. LISTADO DE NOMBRES DE ALUMNOS");
-                System.out.println("\t0. FIN DE LA APLICACION");
-                System.out.print("\n\t   Opcion seleccionada: ");
+        Boolean salir = false;
 
-                option = sc.nextInt();
+        int option = 0;
+        do {
+            System.out.println("\n*************** MENU PRINCIPAL ***************\n");
+            System.out.println("\t1. MANTENIMIENTO ALUMNOS");
+            System.out.println("\t2. MANTENIMIENTO PROFESORES");
+            System.out.println("\t3. MANTENIMIENTO CURSOS");
+            System.out.println("\t4. MANTENIMIENTO ASIGNATURAS");
+            System.out.println("\t5. MANTENIMIENTO CUENTAS BANCARIAS");
+            System.out.println("\t6. LISTADO DE NOMBRES DE PROFESORES Y ALUMNOS");
+            System.out.println("\t7. LISTADO DE NOMBRES DE PROFESORES");
+            System.out.println("\t8. LISTADO DE NOMBRES DE ALUMNOS");
+            System.out.println("\t0. FIN DE LA APLICACION");
+            System.out.print("\n\t   Opcion seleccionada: ");
 
-                switch (option) {
-                    case 1:
-                        subMenuAlumno();
-                        break;
-                    case 2:
-                        subMenuProfesores();
-                        break;
-                    case 3: // print all names
-                        Cursos.subMenuCurso();
-                        break;
-                    case 4:
-                        CursoAsignatura.subMenuCursoAsignaturas();
-                        break;
-                    case 5:
-                        SucursalesBancarias.subMenuSucursalesBancarias();
-                        break;
-                    case 6:
-                        imprimirListados("Curso Académico: %s\nLISTADO DE PROFESORES Y ALUMNOS\nAPELLIDOS/NOMBRE\n", true, true);
-                        break;
-                    case 7:
-                        imprimirListados("Curso Académico: %s\nLISTADO DE PROFESORES\nAPELLIDOS/NOMBRE\n", true, false);
-                        break;
-                    case 8:
-                        imprimirListados("Curso Académico: %s\nLISTADO DE ALUMNOS\nAPELLIDOS/NOMBRE\n", false, true);
-                        break;
-                    case 0:
-                    default:
-                        try {   
-                            FuncionesFicheros.almacenarColPersonasEnArchivo(lista, fPersonas);
-                        } catch (IOException e) {
-                            System.out.println("Error: -> " + e.getMessage());
-                        }
-                        
-                        salir = true;
-                        break;
+            option = sc.nextInt();
 
-                }
+            switch (option) {
+                case 1:
+                    subMenuAlumno();
+                    break;
+                case 2:
+                    subMenuProfesores();
+                    break;
+                case 3: // print all names
+                    Cursos.subMenuCurso();
+                    break;
+                case 4:
+                    CursoAsignatura.subMenuCursoAsignaturas();
+                    break;
+                case 5:
+                    SucursalesBancarias.subMenuSucursalesBancarias();
+                    break;
+                case 6:
+                    imprimirListados("Curso Académico: %s\nLISTADO DE PROFESORES Y ALUMNOS\nAPELLIDOS/NOMBRE\n", true, true);
+                    break;
+                case 7:
+                    imprimirListados("Curso Académico: %s\nLISTADO DE PROFESORES\nAPELLIDOS/NOMBRE\n", true, false);
+                    break;
+                case 8:
+                    imprimirListados("Curso Académico: %s\nLISTADO DE ALUMNOS\nAPELLIDOS/NOMBRE\n", false, true);
+                    break;
+                case 0:
+                default:
+                    try {
+                        FuncionesFicheros.almacenarColPersonasEnArchivo(lista, fPersonas);
+                    } catch (IOException e) {
+                        System.out.println("Error: -> " + e.getMessage());
+                    }
 
-            } while (!salir);
-        
+                    salir = true;
+                    break;
+
+            }
+
+        } while (!salir);
+
     }
 
     /**
@@ -195,7 +194,7 @@ public class CentroEducativoV3 {
                 System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
                 System.out.print("\n\t   Opcion seleccionada: ");
                 opt = sc.nextInt();
-                
+
                 switch (opt) {
                     case 1:
                         System.out.println("Opcion seleccionada: Alta profesor");
@@ -288,7 +287,7 @@ public class CentroEducativoV3 {
                                         if (horas > 20) {
                                             throw new Exception("No se puede exceder de mas de 20 horas al mes");
                                         }
-                                        profe.setHorasExtra(mes-1, horas);
+                                        profe.setHorasExtra(mes - 1, horas);
                                     }
                                 }
                                 correcto = true;
@@ -316,13 +315,13 @@ public class CentroEducativoV3 {
 
                     case 6:
                         System.out.println("Opción seleccionada: Datos de las clases que imparten los profesores.");
-                        
+
                         it = lista.keySet().iterator();
                         while (it.hasNext()) {
                             key = (String) it.next();
                             if (lista.get(key) instanceof Profesor) {
                                 profe = (Profesor) lista.get(key);
-                                System.out.println(profe.imprimeAsignaturas());                        
+                                System.out.println(profe.imprimeAsignaturas());
                                 System.out.println();
                             }
                         }
@@ -368,9 +367,11 @@ public class CentroEducativoV3 {
                                 System.out.println("Apellidos del Profesor: ");
                                 String a = sc.nextLine();
                                 key = a.toLowerCase() + ", " + n.toLowerCase();
-                                
-                                if(! lista.containsKey(key)) throw new Exception("No existe ningún profesor con ese nombre.");
-                                
+
+                                if (!lista.containsKey(key)) {
+                                    throw new Exception("No existe ningún profesor con ese nombre.");
+                                }
+
                                 per = lista.get(key);
                                 if (per instanceof Persona) {
                                     profe = (Profesor) per;
@@ -383,7 +384,7 @@ public class CentroEducativoV3 {
                                 System.out.println("Error: " + e.getMessage());
                             }
 
-                        } while (! correcto);
+                        } while (!correcto);
                         System.out.println("");
                         break;
                     case 0:
@@ -393,7 +394,7 @@ public class CentroEducativoV3 {
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
-        } while (! correcto);
+        } while (!correcto);
     }
 
     /**
@@ -415,7 +416,7 @@ public class CentroEducativoV3 {
                 System.out.println("\t0. VUELTA AL MENU PRINCIPAL");
                 System.out.print("\n\t   Opcion seleccionada: ");
                 opt = sc.nextInt();
-                
+
                 switch (opt) {
                     case 0:
                         break;
@@ -573,26 +574,30 @@ public class CentroEducativoV3 {
 
                         break;
                     case 7:
-                        sc.nextLine();
                         System.out.println("\t7. LISTADO DE BOLETINES DE NOTAS DE UNA EVALUACION Y CURSO");
-                        
-                        try {
-                            System.out.println("\nIndique el código del curso: ");
-                            String codCurso = sc.nextLine().toUpperCase();
-                            System.out.println("Indique el número de la evaluación: ");
-                            int eval = sc.nextInt();
-                            it = lista.keySet().iterator();
-                            while (it.hasNext()) {
-                                key = (String) it.next();
-                                if (lista.get(key) instanceof Alumno) {
-                                    alumn = (Alumno) lista.get(key);
-                                    System.out.println(alumn.boletinNotas(codCurso, eval));
+                        boolean correcto = false;
+                        do {
+                            sc.nextLine();
+                            try {
+                                System.out.println("Indique el código del curso: ");
+                                String codCurso = sc.nextLine();
+                                System.out.println("Indique el número de la evaluación: ");
+                                int eval = sc.nextInt();
+                                it = lista.keySet().iterator();
+                                while (it.hasNext()) {
+                                    key = (String) it.next();
+                                    if (lista.get(key) instanceof Alumno) {
+                                        alumn = (Alumno) lista.get(key);
+                                        System.out.println(alumn.boletinNotas(codCurso, eval));
+                                    }
                                 }
+                                correcto = true;
+                            } catch (InputMismatchException e) {
+                                correcto = false;
+                                System.out.println("Ha occurrido una excepción: " + e.getMessage());
                             }
-                        } catch (Exception en) {
-                            System.out.println("Ha occurrido una excepción: " + en.getMessage());
-                        }
-                        
+                        } while (!correcto);
+
                         break;
                     default:
                         break;
