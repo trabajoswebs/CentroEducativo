@@ -14,6 +14,8 @@ import java.util.Scanner;
  * @author Acer
  */
 public class Persona implements Serializable{
+    
+    private static final long serialVersionUID = 4L;
 
     public String getNombre() {
         return nombre.toLowerCase();
