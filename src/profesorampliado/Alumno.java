@@ -142,10 +142,10 @@ public class Alumno extends Persona{
         String[] eval = {"Primera Evaluación", "Segunda Evaluación", "Tercera Evaluación", "Evaluación Ordinaria", "Evaluación Extraordinaria"};
         StringBuilder cadena = new StringBuilder();
 
-        if (CentroEducativoV3.tmCC.containsKey(curso)) { //Se comprueba que el codigo del curse este en la lista de codigos
+        if (CentroEducativoV3.tmCC.containsKey(curso.toUpperCase())) { //Se comprueba que el codigo del curse este en la lista de codigos
             if (evaluacion >= 1 && evaluacion <= 5) {  //Se comprueba que la evaluacion de las notas se comprendan entre 0 y 5
 
-                if (this.tmAsignaturasAlumno.firstKey().substring(0, 2).equals(curso)) {
+                if (this.tmAsignaturasAlumno.firstKey().substring(0, 2).equals(curso.toUpperCase())) {
                     cadena.append("\nBoletín de notas del alumno/a ");
                     cadena.append(this.getApellidos() + ", " + this.getNombre() + ": ");
                 }

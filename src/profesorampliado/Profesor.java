@@ -224,11 +224,11 @@ public class Profesor extends Persona{
      * @return the horasExtra
      */
     public int getHorasExtra(int m) {
-        return horasExtras[m];
+        return horasExtras[m-1];
     }
 
     public void setHorasExtra(int i, int horasExtra) {
-        this.horasExtras[i] = horasExtra;
+        this.horasExtras[i-1] = horasExtra;
     }
 
     /**
@@ -247,7 +247,7 @@ public class Profesor extends Persona{
 
     //Calculo del importe de las horas extras por mes    
     private double calcularImporteHorasExtras(int mes) {
-        return this.horasExtras[mes] * CentroEducativoV3.getPagoPorHoraExtra();
+        return this.horasExtras[mes-1] * CentroEducativoV3.getPagoPorHoraExtra();
     }
 
     //Método para calcular el sueldo bruto de un mes (sueldo base +
