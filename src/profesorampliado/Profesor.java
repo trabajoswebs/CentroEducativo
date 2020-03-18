@@ -302,7 +302,6 @@ public class Profesor extends Persona{
         sb.append(this.getNombre() + ", " + this.getApellidos());
         sb.append("\nDNI: ");
         sb.append(this.getDni());
-        sb.append(this.toString());
         sb.append("\nCurso: ");
         sb.append(CentroEducativoV3.getCurso());
         sb.append("\nNomina mes: ");
@@ -315,8 +314,6 @@ public class Profesor extends Persona{
         sb.append(this.calcularSueldoBruto(mes));
         sb.append("\nRetención IRPF: ");
         sb.append(this.calcularRetencionIrpf(mes));
-        sb.append("\nSueldo Bruto: ");
-        sb.append(this.calcularSueldoBruto(mes));
         sb.append("\nSueldo: ");
         sb.append(this.calcularSueldo(mes));
         return sb.toString();
